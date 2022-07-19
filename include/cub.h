@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/19 16:49:12 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:25:36 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_mapinfo {
 int		check_player(char **tab_map);
 int		check_letters(char **tab_map);
 int		check_first_last_line(char *line);
+int		check_walls(char **tab_map, t_mapinfo *mapinfo);
 
 //check files
 int		verify_filename(char *mapfile);

@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/19 16:58:04 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/19 17:25:24 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 {
 	if (check_first_last_line(tab_map[0]) != 0
 		|| check_first_last_line(tab_map[mapinfo->line_count - 1]) != 0
+		|| check_walls(tab_map, mapinfo) != 0
 		|| check_player(tab_map) != 0
 		|| check_letters(tab_map) != 0)
 	{
