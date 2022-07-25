@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:07:15 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 14:53:13 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:22:28 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_first_last_line(char *str)
 		return (1);
 	while (line[i])
 	{
-		if (line[i] != '1')
+		if (line[i] != '1' && line[i] != ' ')
 		{
 			free(line);
 			return (error("Map isn't closed 1"));
@@ -40,6 +40,7 @@ int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with
 	char	*line;
 
 	i = 0;
+	print_tabmap(tab_map);
 	while (i < mapinfo->line_count - 1)
 	{
 		line = ft_strtrim(tab_map[i], " \n");

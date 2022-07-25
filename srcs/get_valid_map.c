@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 16:45:52 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:17:33 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,10 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 	tab_map = NULL;
 	if (!(check_textures(file_to_parse, mapinfo, &i)))// if pbm gerer
 	{
-		mapinfo->line_count -= (i - 1);
+		mapinfo->line_count -= i;
 		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
 		if (!tab_map)
 			void_error(tab_map); // checker s'il y a pas double free
-		i -= 1;
 		while (file_to_parse[i])
 		{
 			tab_map[j] = ft_strdup(file_to_parse[i]);
@@ -113,7 +112,7 @@ char	**replace_spaces(char **tab_map)
 int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 {
 	if (check_first_last_line(tab_map[0]) != 0
-		|| check_first_last_line(tab_map[mapinfo->line_count - 1]) != 0
+		|| check_first_last_line(tab_map[mapinfo->line_count -1]) != 0
 		|| check_walls(tab_map, mapinfo) != 0
 		|| check_player(tab_map) != 0
 		|| check_letters(tab_map) != 0)
@@ -122,5 +121,6 @@ int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 		exit (EXIT_FAILURE);
 	}
 	tab_map = replace_spaces(tab_map);
+//	print_tabmap(tab_map);
 	return (0);
 }
