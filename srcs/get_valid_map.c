@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 13:25:36 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 14:46:00 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**create_parsing(int fd, t_mapinfo *mapinfo)
 {
 	char	**file_to_parse;
 	char	*line;
-	
+
 	file_to_parse = NULL;
 	line = get_next_line(fd);
 	if (!line || line[0] == '\0')
@@ -63,7 +63,6 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 	tab_map[j] = NULL;
 	free(file_to_parse);
 	return (tab_map);
-	
 }
 
 char	**get_map(int fd, char **file_to_parse, t_mapinfo *mapinfo)
@@ -95,10 +94,10 @@ char	**replace_spaces(char **tab_map)
 	int	j;
 
 	i = 0;
-	while(tab_map[i])
+	while (tab_map[i])
 	{
 		j = 0;
-		while(tab_map[i][j])
+		while (tab_map[i][j])
 		{
 			if (tab_map[i][j] == ' ')
 				tab_map[i][j] = '1';
