@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 12:27:07 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 13:25:36 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,13 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 {
 	int		i;
 	int		j;
-	char	*line;
 	char	**tab_map;
 
 	i = 0;
 	j = 0;
 	tab_map = NULL;
-	line = ft_strtrim(file_to_parse[i], " ");
-	while (file_to_parse[i] && ft_isdigit(line[0]) == 1)
-	{
-		free(line);
-		line = ft_strtrim(file_to_parse[i], " ");
-		// endroit ou recuperer les textures dans une structure
-		i++;
-	}
-	//if pbm texture free(file_to_parse)	
-	free(line);
-	mapinfo->line_count -= i;
+	check_textures(file_to_parse, mapinfo, &i); // if pbm gerer
+	mapinfo->line_count -= (i - 1);
 	tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
 	if (!tab_map)
 		void_error(tab_map); // checker s'il y a pas double free
@@ -122,7 +112,7 @@ char	**replace_spaces(char **tab_map)
 int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 {
 	if (check_first_last_line(tab_map[0]) != 0
-		|| check_first_last_line(tab_map[mapinfo->line_count]) != 0
+		|| check_first_last_line(tab_map[mapinfo->line_count - 1]) != 0
 		|| check_walls(tab_map, mapinfo) != 0
 		|| check_player(tab_map) != 0
 		|| check_letters(tab_map) != 0)
