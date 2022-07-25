@@ -77,7 +77,6 @@ void	calc(t_data *data)
 
 		while (data->wall.hit == 0)
 		{
-			//jump to next map square, OR in x-direction, OR in y-direction
 			if (data->wall.side_dist_x < data->wall.side_dist_y)
 			{
 				data->wall.side_dist_x += data->wall.delta_dist_x;
@@ -90,7 +89,6 @@ void	calc(t_data *data)
 				data->wall.map_y += data->wall.step_y;
 				data->wall.side = 1;
 			}
-			//Check if ray has data->wall.hit a wall
 			if (map[data->wall.map_x][data->wall.map_y] > 0) 
 				data->wall.hit = 1;
 		}
@@ -98,11 +96,7 @@ void	calc(t_data *data)
 			data->wall.perp_wall_dist = (data->wall.map_x - data->player.pos_x + (1 - data->wall.step_x) / 2) / data->wall.raydir_x;
 		else
 			data->wall.perp_wall_dist = (data->wall.map_y - data->player.pos_y + (1 - data->wall.step_y) / 2) / data->wall.raydir_y;
-
-		// WINDOW_HEIGHT of line to draw on screen
 		data->wall.line_height = (int)(WINDOW_HEIGHT / data->wall.perp_wall_dist);
-
-		//calculate lowest and highest pixel to fill in current stripe
 		data->wall.draw_start = -data->wall.line_height / 2 + WINDOW_HEIGHT / 2;
 		if(data->wall.draw_start < 0)
 			data->wall.draw_start = 0;
@@ -153,19 +147,16 @@ int	main(int ac, char **av)
 		free(data.win_ptr);
 		return (EXIT_FAILURE);
 	}
-	//Create background and character
     data.img.mlx_img = mlx_new_image(data.mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
-	//Loop about keypress and mouvements
 	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
 	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data); /* ADDED */
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_input, &data); /* ADDED */
 	
     mlx_loop(data.mlx_ptr);
 
-	//Close windows
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
     mlx_destroy_display(data.mlx_ptr);
 	free(data.mlx_ptr);
