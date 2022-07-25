@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 16:02:57 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:45:52 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,22 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 	i = 0;
 	j = 0;
 	tab_map = NULL;
-	check_textures(file_to_parse, mapinfo, &i); // if pbm gerer
-	mapinfo->line_count -= (i - 1);
-	tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
-	if (!tab_map)
-		void_error(tab_map); // checker s'il y a pas double free
-	i -= 1;
-	while (file_to_parse[i])
+	if (!(check_textures(file_to_parse, mapinfo, &i)))// if pbm gerer
 	{
-		tab_map[j] = ft_strdup(file_to_parse[i]);
-		i++;
-		j++;
+		mapinfo->line_count -= (i - 1);
+		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
+		if (!tab_map)
+			void_error(tab_map); // checker s'il y a pas double free
+		i -= 1;
+		while (file_to_parse[i])
+		{
+			tab_map[j] = ft_strdup(file_to_parse[i]);
+			i++;
+			j++;
+		}
+		tab_map[j] = NULL;
+		free_all(file_to_parse);
 	}
-	tab_map[j] = NULL;
-	free_all(file_to_parse);
 	return (tab_map);
 }
 
