@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:45:10 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/26 13:49:59 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:28:51 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_textstruct(t_textures *textinfo)
 	free(textinfo->floor);
 	free(textinfo->sky);
 }
-
+/*
 static int	check_colors(char *texture)
 {
 	int		i;
@@ -76,7 +76,10 @@ static int	check_texture_files(t_textures *textinfo)
 
 	fd = open(textinfo->no, O_RDONLY);
 	if (fd == -1)
+	{
+		printf("%s", textinfo->no);
 		return (1);
+	}
 	close(fd);
 	fd = open(textinfo->so, O_RDONLY);
 	if (fd == -1)
@@ -90,10 +93,10 @@ static int	check_texture_files(t_textures *textinfo)
 	if (fd == -1)
 		return (1);
 	close(fd);
-	if (check_colors(textinfo->sky) == 1 || check_colors(textinfo->floor))
+	if (check_colors(textinfo->sky) == 1 || check_colors(textinfo->floor) == 1)
 		return (1);
 	return (0);
-}
+}*/
 
 void	get_texture(t_textures *textinfo, char *line, char c)
 {
@@ -139,15 +142,17 @@ int	check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i)
 		(*i)++;
 		line = ft_strtrim(file_to_parse[j], " ");
 	}
+	while (file_to_parse[mapinfo->line_count - 1][0] == '\n')
+		mapinfo->line_count--;
 	// Ici faut virer les lignes a la fin du fichier si cest que des \n
-	if (check_texture_files(&textinfo) == 1) // check if there is texture!
+/*	if (check_texture_files(&textinfo) == 1) // check if there is texture!
 	{
 		free(line);
 		error("problem with the texture files");
 		free_textstruct(&textinfo);
 		free_all(file_to_parse);
 		exit (EXIT_FAILURE);
-	}
+	}*/
 	free(line);
 	free_textstruct(&textinfo);
 	return (0);

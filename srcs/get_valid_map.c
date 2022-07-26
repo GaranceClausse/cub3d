@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 18:17:33 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:33:08 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
 		if (!tab_map)
 			void_error(tab_map); // checker s'il y a pas double free
-		while (file_to_parse[i])
+		while (j < mapinfo->line_count)
 		{
 			tab_map[j] = ft_strdup(file_to_parse[i]);
 			i++;
