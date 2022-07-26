@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:22:55 by gclausse          #+#    #+#             */
-/*   Updated: 2022/02/21 13:33:27 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:52:46 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static char	*get_one_line(char *cpy)
 		i++;
 	if (cpy[i] == '\n')
 		s2 = malloc(sizeof(char) * (i + 2));
+	else
+		s2 = malloc(sizeof(char) * (i + 1));
 	if (!s2)
 		return (NULL);
 	i = 0;

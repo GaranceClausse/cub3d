@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 12:15:59 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:10:55 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_tabmap(char **tab_map)
 	int	i;
 
 	i = 0;
-	while(tab_map[i])
+	while (tab_map[i])
 	{
 		printf("%s", tab_map[i]);
 		i++;
