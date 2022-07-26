@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:07:15 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/26 14:36:25 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:03:44 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,30 @@ int	check_first_last_line(char *str)
 	return (0);
 }
 
+int	check_empty_spaces(char **tab_map, t_mapinfo *mapinfo)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < mapinfo->line_count)
+	{
+		j = 0;
+		while (tab_map[i][j])
+		{
+			if (tab_map[i][j] == ' ')
+				if ((i != 0 && tab_map[i - 1][j] && tab_map[i - 1][j] == '0')
+					|| ( i != mapinfo->line_count - 1
+					&& tab_map[i + 1][j] && tab_map[i + 1][j] == '0')
+					|| (tab_map[i][j + 1] && tab_map[i][j + 1] == 0))
+					return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with 1, stiil need to check up and down
 {
 	int		i;
@@ -51,8 +75,11 @@ int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with
 		free(line);
 		i++;
 	}	
+	if (check_empty_spaces(tab_map, mapinfo) == 1)
+		return (error("Map isn't closed"));
 	return (0);
 }
+
 
 int	check_letters(char **tab_map)
 {

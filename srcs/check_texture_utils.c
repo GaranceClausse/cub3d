@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:45:10 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/26 14:56:52 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:19:20 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_textures(t_textures *textinfo)
 	textinfo->ea = "\0";
 	textinfo->floor = "\0";
 	textinfo->sky = "\0";
+	textinfo->dble = 0;
 }
 
 void	free_textstruct(t_textures *textinfo)
@@ -92,6 +93,8 @@ static int	check_texture_files(t_textures *textinfo)
 	close(fd);
 	if (check_colors(textinfo->sky) == 1 || check_colors(textinfo->floor) == 1)
 		return (1);
+	else if (textinfo->dble != 0)
+		return (1);
 	return (0);
 }
 
@@ -100,18 +103,20 @@ void	get_texture(t_textures *textinfo, char *line, char c)
 	char	*to_trim;
 
 	to_trim = ft_strtrim(line, " \n");
-	if (c == 'N')
+	if (c == 'N' && textinfo->no[0] == '\0')
 		textinfo->no = ft_strdup(to_trim);
-	else if (c == 'S')
+	else if (c == 'S' && textinfo->so[0] == '\0')
 		textinfo->so = ft_strdup(to_trim);
-	else if (c == 'W')
+	else if (c == 'W' && textinfo->we[0] == '\0')
 		textinfo->we = ft_strdup(to_trim);
-	else if (c == 'E')
+	else if (c == 'E' && textinfo->ea[0] == '\0')
 		textinfo->ea = ft_strdup(to_trim);
-	else if (c == 'F') //  a revoir
+	else if (c == 'F' && textinfo->floor[0] == '\0')
 		textinfo->floor = ft_strdup(line);
-	else if (c == 'C') // a revoir
-		textinfo->sky = ft_strdup(line);
+	else if (c == 'C' && textinfo->sky[0] == '\0')
+		textinfo->sky = ft_strdup(line);	
+	else if (c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == 'F' || c == 'C')
+		textinfo->dble++;
 	free(to_trim);
 }
 
