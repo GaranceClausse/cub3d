@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/26 15:11:58 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:12:14 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,30 @@ char	**create_parsing(int fd, t_mapinfo *mapinfo)
 	return (file_to_parse);
 }
 
+char	*dup_map(char *s1, int len)
+{
+	int		i;
+	char	*cpy;
+
+	i = 0;
+	cpy = malloc(sizeof(char) * (len + 3));
+	if (!cpy)
+		return (NULL);
+	while (s1[i] && s1[i] != '\n')
+	{
+		cpy[i] = s1[i];
+		i++;
+	}
+	while (i <= len)
+	{
+		cpy[i] = '1';
+		i++;
+	}
+	cpy[i] = '\n';
+	cpy[++i] = '\0';
+	return (cpy);
+}
+
 char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter structure textures
 {
 	int		i;
@@ -56,11 +80,12 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 			void_error(tab_map); // checker s'il y a pas double free
 		while (j < mapinfo->line_count)
 		{
-			tab_map[j] = ft_strdup(file_to_parse[i]);
+			tab_map[j] = dup_map(file_to_parse[i], mapinfo->line_len - 1); // check if malloc pbm
 			i++;
 			j++;
 		}
 		tab_map[j] = NULL;
+		print_tabmap(tab_map);
 		free_all(file_to_parse);
 	}
 	return (tab_map);
