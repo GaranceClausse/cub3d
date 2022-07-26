@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:45:10 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/26 16:19:20 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 16:23:43 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ static int	check_colors(char *texture)
 			free(line);
 			return (1);
 		}
+		free(line);
 		i++;
 	}
 	free_all(color);
-	free(line);
 	return (0);
 }
 
