@@ -1,7 +1,12 @@
 #include "cub3d.h"
 
 int map[24][24] = {
-								{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+							{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
 							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
 							{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
@@ -46,8 +51,8 @@ void	calc(t_data *data)
 		data->wall.raydir_y = data->player.dir_y + data->player.plane_y * data->wall.camera_x;
 		
 
-		data->wall.map_x = (int)data->game.loc.character_x;
-		data->wall.map_y = (int)data->game.loc.character_y;
+		data->wall.map_x = (int)data->player.pos_x;
+		data->wall.map_y = (int)data->player.pos_y;
 
 		data->wall.delta_dist_x = fabs(1 / data->wall.raydir_x);
 		data->wall.delta_dist_y = fabs(1 / data->wall.raydir_y);
@@ -129,8 +134,8 @@ int	main(int ac, char **av)
 	t_data	data;
     int     fd;
     
-	data.player.pos_x = 12;
-	data.player.pos_y = 5;
+	data.player.pos_x = 2;
+	data.player.pos_y = 2;
 	data.player.dir_x = -1;
 	data.player.dir_y = 0;
 	data.player.plane_x = 0;
