@@ -1,40 +1,61 @@
-MANDA_NAMES = 	cub3d.c mouvements.c hooks.c  \
-				gnl/get_next_line.c gnl/get_next_line_utils.c \
-# test.c
+NAME    =	cub3d
+
+SRC_PATH=./srcs/
+
+SRCS    =	check_map_utils.c \
+			check_texture_utils.c \
+			check_files.c \
+			get_valid_map.c \
+			manage_errors.c\
+			main.c\
 
 
+SRC=$(addprefix $(SRC_PATH), $(SRCS))
 
-MANDA_OBJS =	 $(MANDA_NAMES:.c=.o)
+OBJS=$(SRC:.c=.o)
 
-NAME = cub3d
+%.o: %.c
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-CC = clang
-CFLAGS = 
-# -Wall -Wextra -Werror -g
-MLX = mlx/libmlx_Linux.a -lX11 -lXext
+CC        =    gcc
+#CC        =    clang-9
+RM        =    rm -f
+CFLAGS    =  -Wall -Werror -Wextra -g3
+#-fsanitize=address -fsanitize=leak -g3
 
-AR = ar rc
+MLX        = ./mlx_linux
 
-RM = rm -f
+MLX_LIB = ./mlx_linux/libmlx_Linux.a
 
-RL = ranlib
+LIBFT= ./libft/libft.a
 
-$(NAME):	$(MANDA_OBJS)
-			make -C mlx
-			$(CC) $(CFLAGS) -lm $(MANDA_OBJS) $(MLX) -o $(NAME)
+all: $(NAME)
 
-all:		$(NAME)
+$(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
+	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx_linux -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
 
-clean:	
-			$(RM) $(MANDA_OBJS)
+$(MLX_LIB):
+	cd ./mlx_linux && ./configure
 
-fclean:		clean
-			$(RM) $(NAME)
+$(LIBFT):
+	make -C libft
+	
 
-re:			fclean all
+clean:
+	${RM} ${OBJS}
+	make clean -C ${MLX}
+	make clean -C libft
 
-malloc_test: $(MANDA_OBJS)
-	make -C mlx
-	$(CC) $(CFLAGS)  -o $@ ${MANDA_OBJS} $(MLX) -L. -lmallocator
+fclean:        clean
+	${RM} ${NAME}
+	make fclean -C libft
+	${RM} ${NAME} ${MLX_LIB}
 
-.PHONY:		all bonus clean fclean re
+re:            fclean
+	$(MAKE) all -j
+
+.PHONY:        all clean fclean re
+
+
+#-framework OpenGL -framework AppKit
+>>>>>>> garance
