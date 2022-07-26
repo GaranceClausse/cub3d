@@ -6,11 +6,23 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/19 16:51:31 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:15:59 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
+
+void	print_tabmap(char **tab_map)
+{
+	int	i;
+
+	i = 0;
+	while(tab_map[i])
+	{
+		printf("%s", tab_map[i]);
+		i++;
+	}
+}
 
 void	init_mapinfo(t_mapinfo *mapinfo)
 {
@@ -26,6 +38,7 @@ int	main(int argc, char **argv)
 	int			fd;
 	t_mapinfo	mapinfo;
 	char		**tab_map;
+	char		**file_to_parse;
 
 	init_mapinfo(&mapinfo);
 	if (argc != 2)
@@ -35,11 +48,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (error("couldn't open the file"));
-	tab_map = create_map(fd, &mapinfo);
+	file_to_parse = create_parsing(fd, &mapinfo);
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (error("couldn't open the file"));
-	tab_map = get_map(fd, tab_map, &mapinfo);
+	tab_map = get_map(fd, file_to_parse, &mapinfo); // ajouter structure textures
+	print_tabmap(tab_map); // debug
 	free_all(tab_map);
 }

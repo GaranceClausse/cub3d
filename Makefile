@@ -3,6 +3,7 @@ NAME    =	cub3d
 SRC_PATH=./srcs/
 
 SRCS    =	check_map_utils.c \
+			check_texture_utils.c \
 			check_files.c \
 			get_valid_map.c \
 			manage_errors.c\

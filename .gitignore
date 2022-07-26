@@ -1,3 +1,5 @@
 cub3d
 *.o
 mlx_linux/
+.vscode/
+libft/libft.a
