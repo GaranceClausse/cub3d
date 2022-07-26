@@ -1,9 +1,15 @@
-NO             ./check_files.c
-SO ./check_files.c
-WE ./check_files.c
-EA ./check_files.c
-F 0,100,0
+NO             ./srcs/check_files.c
+SO ./srcs/check_files.c
+WE ./srcs/check_files.c
+EA            ./srcs/check_files.c
+
+
+
+
+
+F            0,      100     ,    0               
 C 225,0,0
+
 1111111111111111111111111
 1000000000110000000000001
        1011000001110000000000001

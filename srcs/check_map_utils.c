@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:07:15 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 18:22:28 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:36:25 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with
 	char	*line;
 
 	i = 0;
-	print_tabmap(tab_map);
 	while (i < mapinfo->line_count - 1)
 	{
 		line = ft_strtrim(tab_map[i], " \n");
