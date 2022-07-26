@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 13:25:36 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 18:17:33 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	**create_parsing(int fd, t_mapinfo *mapinfo)
 {
 	char	**file_to_parse;
 	char	*line;
-	
+
 	file_to_parse = NULL;
 	line = get_next_line(fd);
 	if (!line || line[0] == '\0')
@@ -48,22 +48,22 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo) // ajouter
 	i = 0;
 	j = 0;
 	tab_map = NULL;
-	check_textures(file_to_parse, mapinfo, &i); // if pbm gerer
-	mapinfo->line_count -= (i - 1);
-	tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
-	if (!tab_map)
-		void_error(tab_map); // checker s'il y a pas double free
-	i -= 1;
-	while (file_to_parse[i])
+	if (!(check_textures(file_to_parse, mapinfo, &i)))// if pbm gerer
 	{
-		tab_map[j] = file_to_parse[i];
-		i++;
-		j++;
+		mapinfo->line_count -= i;
+		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
+		if (!tab_map)
+			void_error(tab_map); // checker s'il y a pas double free
+		while (file_to_parse[i])
+		{
+			tab_map[j] = ft_strdup(file_to_parse[i]);
+			i++;
+			j++;
+		}
+		tab_map[j] = NULL;
+		free_all(file_to_parse);
 	}
-	tab_map[j] = NULL;
-	free(file_to_parse);
 	return (tab_map);
-	
 }
 
 char	**get_map(int fd, char **file_to_parse, t_mapinfo *mapinfo)
@@ -74,7 +74,7 @@ char	**get_map(int fd, char **file_to_parse, t_mapinfo *mapinfo)
 	file_to_parse[0] = get_next_line(fd);
 	if (!file_to_parse[0])
 	{
-		free_all(file_to_parse);
+		free(file_to_parse);
 		void_error(file_to_parse);
 	}
 	i = 1;
@@ -95,10 +95,10 @@ char	**replace_spaces(char **tab_map)
 	int	j;
 
 	i = 0;
-	while(tab_map[i])
+	while (tab_map[i])
 	{
 		j = 0;
-		while(tab_map[i][j])
+		while (tab_map[i][j])
 		{
 			if (tab_map[i][j] == ' ')
 				tab_map[i][j] = '1';
@@ -112,7 +112,7 @@ char	**replace_spaces(char **tab_map)
 int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 {
 	if (check_first_last_line(tab_map[0]) != 0
-		|| check_first_last_line(tab_map[mapinfo->line_count - 1]) != 0
+		|| check_first_last_line(tab_map[mapinfo->line_count -1]) != 0
 		|| check_walls(tab_map, mapinfo) != 0
 		|| check_player(tab_map) != 0
 		|| check_letters(tab_map) != 0)
@@ -121,5 +121,6 @@ int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 		exit (EXIT_FAILURE);
 	}
 	tab_map = replace_spaces(tab_map);
+//	print_tabmap(tab_map);
 	return (0);
 }

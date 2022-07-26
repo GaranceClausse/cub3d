@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:56:59 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 12:15:55 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:31:27 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	free_all(char **tab_map)
 
 int	error(char *str)
 {
-	write(2, "Error :\n", 6);
+	write(2, "Error : \n", 8);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	return (1);
