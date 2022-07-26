@@ -27,14 +27,35 @@ int map[24][24] = {
 							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 						};
 
-void	verLine(t_data *data, int x, int y1, int y2, int color)
+void	img_pix_put(t_img *img, int x, int y, int color)
+{
+	char    *pixel;
+	int		i;
+
+	i = img->bpp - 8;
+    pixel = img->addr + (y * img->line_len + x * (img->bpp / 8));
+	while (i >= 0)
+	{
+		/* big endian, MSB is the leftmost bit */
+		if (img->endian != 0)
+			*pixel++ = (color >> i) & 0xFF;
+		/* little endian, LSB is the leftmost bit */
+		else
+		{
+			*pixel++ = (color >> (img->bpp - 8 - i)) & 0xFF;
+		}
+		i -= 8;
+	}
+}
+
+void	verLine(t_data *info, int x, int y1, int y2, int color)
 {
 	int	y;
 
 	y = y1;
 	while (y <= y2)
 	{
-		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, color);
+		img_pix_put(&info->img, x, y, color);
 		y++;
 	}
 }
@@ -42,7 +63,6 @@ void	verLine(t_data *data, int x, int y1, int y2, int color)
 void	calc(t_data *data)
 {
 	int	x;
-
 	x = 0;
 	while (x < WINDOW_WIDTH)
 	{
@@ -97,15 +117,20 @@ void	calc(t_data *data)
 			if (map[data->wall.map_x][data->wall.map_y] > 0) 
 				data->wall.hit = 1;
 		}
+
 		if (data->wall.side == 0)
 			data->wall.perp_wall_dist = (data->wall.map_x - data->player.pos_x + (1 - data->wall.step_x) / 2) / data->wall.raydir_x;
 		else
 			data->wall.perp_wall_dist = (data->wall.map_y - data->player.pos_y + (1 - data->wall.step_y) / 2) / data->wall.raydir_y;
+		
 		data->wall.line_height = (int)(WINDOW_HEIGHT / data->wall.perp_wall_dist);
 		data->wall.draw_start = -data->wall.line_height / 2 + WINDOW_HEIGHT / 2;
+		
 		if(data->wall.draw_start < 0)
 			data->wall.draw_start = 0;
+		
 		data->wall.draw_end = data->wall.line_height / 2 + WINDOW_HEIGHT / 2;
+		
 		if(data->wall.draw_end >= WINDOW_HEIGHT)
 			data->wall.draw_end = WINDOW_HEIGHT - 1;
 
@@ -116,15 +141,34 @@ void	calc(t_data *data)
 		
 		if (data->wall.side == 1)
 			data->wall.color = data->wall.color / 2;
-
+	
 		verLine(data, x, data->wall.draw_start, data->wall.draw_end, data->wall.color);
-		
 		x++;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
+		// draw(data);
+}
+
+int render_rect(t_img *img, t_rect rect)
+{
+	int	i;
+	int j;
+
+	i = rect.y;
+	while (i < rect.y + rect.height)
+	{
+		j = rect.x;
+		while (j < rect.x + rect.width)
+			img_pix_put(img, j++, i, rect.color);
+		++i;
+	}
+	return (0);
 }
 
 int	main_loop(t_data *data)
 {
+	render_rect(&data->img, (t_rect){0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/2, 0xF8F8FF});
+	render_rect(&data->img, (t_rect){0, WINDOW_HEIGHT/2, WINDOW_WIDTH, WINDOW_HEIGHT/2, 0xFFFFF});
 	calc(data);
 	return (0);
 }
@@ -134,18 +178,18 @@ int	main(int ac, char **av)
 	t_data	data;
     int     fd;
     
-	data.player.pos_x = 22;
+	data.player.pos_x = 20;
 	data.player.pos_y = 11;
 	data.player.dir_x = -1;
 	data.player.dir_y = 0;
 	data.player.plane_x = 0;
 	data.player.plane_y = 0.66;
 	data.wall.moveSpeed = 1;
-	data.wall.rotSpeed = 0.05;
+	data.wall.rotSpeed = 1;
 
 	int	i = 0;
 	data.wall.buf = (int **)malloc(sizeof(int *) * WINDOW_HEIGHT);
-	while (i < 0)
+	while (i < WINDOW_HEIGHT)
 	{
 		data.wall.buf[i] = (int *)malloc(sizeof(int) * WINDOW_WIDTH);
 		++i;
@@ -155,8 +199,46 @@ int	main(int ac, char **av)
 	while (i < WINDOW_HEIGHT)
 	{
 		j = 0;
-		while ()
+		while (j < WINDOW_WIDTH)
+		{
+			data.wall.buf[i][j] = 0;
+			++j;
+		}
 		++i;
+	}
+	while (i < 8)
+	{
+		j = 0;
+		while (j < tex_width * tex_height)
+		{
+			data.wall.buf[i][j] = 0;
+			++j;
+		}
+		++i;
+	}
+	int x = 0;
+	int y = 0;
+
+	while (x < tex_width)
+	{
+		y = 0;
+		while (y < tex_height)
+		{
+			int xorcolor = (x * 256 / tex_width) ^ (y * 256 / tex_height);
+			int ycolor = y * 256 / tex_height;
+			int xycolor = y * 128 / tex_height + x * 128 / tex_width;
+			data.wall.texture[0][tex_width * x + y] = 65536 * 254 * (x != y && x != tex_width - y); //flat red texture with black cross
+			data.wall.texture[1][tex_width * x + y] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+			data.wall.texture[2][tex_width * x + y] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+			data.wall.texture[3][tex_width * x + y] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+			data.wall.texture[4][tex_width * x + y] = 256 * xorcolor; //xor green
+			data.wall.texture[5][tex_width * x + y] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+			data.wall.texture[6][tex_width * x + y] = 65536 * ycolor; //red gradient
+			data.wall.texture[7][tex_width * x + y] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+		
+			++y;
+		}
+		++x;
 	}
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
@@ -171,10 +253,10 @@ int	main(int ac, char **av)
 	
 	data.img.addr = mlx_get_data_addr(data.img.mlx_img, &data.img.bpp,
 			&data.img.line_len, &data.img.endian);
-	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
 	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data); /* ADDED */
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_input, &data); /* ADDED */
 	
+	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
     mlx_loop(data.mlx_ptr);
 
 	mlx_destroy_image(data.mlx_ptr, data.img.mlx_img);
