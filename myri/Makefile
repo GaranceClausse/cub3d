@@ -1,16 +1,12 @@
-MANDA_NAMES = 	cub3d.c mouvements.c hooks.c  \
+MANDA_NAMES = 	cub3d.c mouvements.c hooks.c  draw.c init.c \
 				gnl/get_next_line.c gnl/get_next_line_utils.c \
-# test.c
-
-
 
 MANDA_OBJS =	 $(MANDA_NAMES:.c=.o)
 
 NAME = cub3d
 
 CC = clang
-CFLAGS = 
-# -Wall -Wextra -Werror -g
+CFLAGS =  -Wall -Wextra -Werror -g
 MLX = mlx/libmlx_Linux.a -lX11 -lXext
 
 AR = ar rc

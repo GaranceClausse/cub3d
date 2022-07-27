@@ -5,12 +5,15 @@
 #define WINDOW_HEIGHT 860
 #define tex_height 64
 #define tex_width 64
+#define mapWidth 24
+#define mapHeight 24
 
 #define WHITE_PIXEL 0xFFFFFF
 #define BLACK_PIXEL 00000
 # define RED_PIXEL  0xFF2F02
 # define BLUE_PIXEL  0x0464F1
 #define YELLOW_PIXEL 0XFFFF6B
+
 
 #include <X11/keysym.h>
 # include "mlx/mlx.h"
@@ -35,13 +38,12 @@
 typedef struct s_img
 {
 	void	*mlx_img;
-	char	*addr;
+	int	*addr;
 
 	int		bpp; /* bits per pixel */
 	int		line_len;
 	int		endian;
 }	t_img;
-
 
 typedef struct s_rect
 {
@@ -163,5 +165,14 @@ int	handle_keyrelease(int keysym, void *data);
 int	handle_nothing(void);
 int	handle_input(int keysym, t_data *data);
 
+
+void	calc(t_data *data);
+void	init_vrbl(t_data *data);
+
+void	img_pix_put(t_img *img, int x, int y, int color);
+int	main_loop(t_data *data);
+void	draw(t_data *data);
+
+void	trash(t_data *data);
 
 #endif
