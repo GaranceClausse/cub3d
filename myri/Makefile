@@ -3,7 +3,7 @@ MANDA_NAMES = 	cub3d.c mouvements.c hooks.c  draw.c init.c \
 
 MANDA_OBJS =	 $(MANDA_NAMES:.c=.o)
 
-NAME = cub3d
+NAME = cub3D
 
 CC = clang
 CFLAGS =  -Wall -Wextra -Werror -g
