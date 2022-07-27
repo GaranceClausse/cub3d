@@ -6,13 +6,13 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:07:15 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/26 16:03:44 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:23:42 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-int	check_first_last_line(char *str)
+int	check_first_last_line(char *str) //pbm if 0 outside of scope
 {
 	int		i;
 	char	*line;
@@ -47,7 +47,7 @@ int	check_empty_spaces(char **tab_map, t_mapinfo *mapinfo)
 		{
 			if (tab_map[i][j] == ' ')
 				if ((i != 0 && tab_map[i - 1][j] && tab_map[i - 1][j] == '0')
-					|| ( i != mapinfo->line_count - 1
+					|| (i != mapinfo->line_count - 1
 					&& tab_map[i + 1][j] && tab_map[i + 1][j] == '0')
 					|| (tab_map[i][j + 1] && tab_map[i][j + 1] == 0))
 					return (1);
@@ -58,7 +58,7 @@ int	check_empty_spaces(char **tab_map, t_mapinfo *mapinfo)
 	return (0);
 }
 
-int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with 1, stiil need to check up and down
+int	check_walls(char **tab_map, t_mapinfo *mapinfo)
 {
 	int		i;
 	char	*line;
@@ -79,7 +79,6 @@ int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with
 		return (error("Map isn't closed"));
 	return (0);
 }
-
 
 int	check_letters(char **tab_map)
 {

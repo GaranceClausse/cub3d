@@ -6,13 +6,29 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:56:59 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 16:31:27 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:21:44 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-void	free_all(char **tab_map)
+void	free_textstruct(t_textures *textinfo)
+{
+	if (textinfo->no[0] != '\0')
+		free(textinfo->no);
+	if (textinfo->so[0] != '\0')
+		free(textinfo->so);
+	if (textinfo->we[0] != '\0')
+		free(textinfo->we);
+	if (textinfo->ea[0] != '\0')
+		free(textinfo->ea);
+	if (textinfo->floor[0] != '\0')
+		free(textinfo->floor);
+	if (textinfo->sky[0] != '\0')
+		free(textinfo->sky);
+}
+
+void	free_all(char **tab_map, char *str)
 {
 	int	i;
 
@@ -26,6 +42,8 @@ void	free_all(char **tab_map)
 		}
 		free(tab_map);
 	}
+	if (str)
+		free(str);
 }
 
 int	error(char *str)
@@ -39,6 +57,6 @@ int	error(char *str)
 void	void_error(char **tab_map)
 {
 	perror("Error :");
-	free_all(tab_map);
+	free_all(tab_map, NULL);
 	exit(EXIT_FAILURE);
 }
