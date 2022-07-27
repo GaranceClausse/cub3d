@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 13:19:40 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:38:04 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 
 typedef struct s_textures {
+	int		dble;
 	char	*no;
 	char	*so;
 	char	*we;
@@ -45,7 +46,7 @@ int		check_walls(char **tab_map, t_mapinfo *mapinfo);
 
 //check files
 int		verify_filename(char *mapfile);
-//int		check_textures(void);
+int	check_texture_files(t_textures *textinfo);
 
 //check_textures
 int	check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i);
@@ -57,7 +58,8 @@ int		valid_map(char **tab_map, t_mapinfo *mapinfo);
 char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo);// ajouter structure textures
 
 //errors
-void	free_all(char **tab_map);
+void	free_all(char **tab_map, char *str);
+void	free_textstruct(t_textures *textinfo);
 int		error(char *str);
 void	void_error(char **tab_map);
 

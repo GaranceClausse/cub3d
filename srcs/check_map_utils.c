@@ -6,13 +6,13 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:07:15 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 18:22:28 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 12:39:08 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub.h"
 
-int	check_first_last_line(char *str)
+int	check_first_last_line(char *str) //pbm if 0 outside of scope
 {
 	int		i;
 	char	*line;
@@ -26,7 +26,7 @@ int	check_first_last_line(char *str)
 		if (line[i] != '1' && line[i] != ' ')
 		{
 			free(line);
-			return (error("Map isn't closed 1"));
+			return (error("map isn't closed"));
 		}
 		i++;
 	}
@@ -34,24 +34,49 @@ int	check_first_last_line(char *str)
 	return (0);
 }
 
-int	check_walls(char **tab_map, t_mapinfo *mapinfo) // check if line starts with 1, stiil need to check up and down
+int	check_empty_spaces(char **tab_map, t_mapinfo *mapinfo)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < mapinfo->line_count)
+	{
+		j = 0;
+		while (tab_map[i][j])
+		{
+			if (tab_map[i][j] == ' ')
+				if ((i != 0 && tab_map[i - 1][j] && tab_map[i - 1][j] == '0')
+					|| (i != mapinfo->line_count - 1
+					&& tab_map[i + 1][j] && tab_map[i + 1][j] == '0')
+					|| (tab_map[i][j + 1] && tab_map[i][j + 1] == 0))
+					return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_walls(char **tab_map, t_mapinfo *mapinfo)
 {
 	int		i;
 	char	*line;
 
 	i = 0;
-	print_tabmap(tab_map);
 	while (i < mapinfo->line_count - 1)
 	{
 		line = ft_strtrim(tab_map[i], " \n");
 		if (line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 		{
 			free(line);
-			return (error("Map isn't closed"));
+			return (error("map isn't closed"));
 		}
 		free(line);
 		i++;
 	}	
+	if (check_empty_spaces(tab_map, mapinfo) == 1)
+		return (error("map isn't closed"));
 	return (0);
 }
 
@@ -71,7 +96,7 @@ int	check_letters(char **tab_map)
 				&& tab_map[i][j] != 'E' && tab_map[i][j] != 'W'
 				&& tab_map[i][j] != '\n' && tab_map[i][j] != ' ')
 				)
-				return (error("Wrong map"));
+				return (error("wrong map"));
 			j++;
 		}
 		i++;
@@ -100,6 +125,6 @@ int	check_player(char **tab_map)
 		i++;
 	}
 	if (player != 1)
-		return (error("Map should have one player (and only one)"));
+		return (error("map should have one player (and only one)"));
 	return (0);
 }

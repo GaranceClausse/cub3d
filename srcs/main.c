@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 18:10:55 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:45:55 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (error("couldn't open the file"));
-	tab_map = get_map(fd, file_to_parse, &mapinfo); // ajouter structure textures
+	tab_map = get_map(fd, file_to_parse, &mapinfo);
 	print_tabmap(tab_map); // debug
-	free_all(tab_map);
+	free_all(tab_map, NULL);
 }
