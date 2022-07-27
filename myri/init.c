@@ -35,10 +35,12 @@ void	init_color_map(t_data *data)
 	int	j;
 
 	i = -1;
-	j = 0;
 	data->wall.buf = (int **)malloc(sizeof(int *) * H);
 	while (++i < H)
+	{
 		data->wall.buf[i] = (int *)malloc(sizeof(int) * W);
+	}
+	j = 0;
 	i = -1;
 	while (++i < H)
 	{
@@ -51,7 +53,7 @@ void	init_color_map(t_data *data)
 	{
 		j = 0;
 		while (j < tex_w * tex_h)
-			data->wall.buf[i][j++] = 0;
+			data->wall.texture[i][j++] = 0;
 	}
 }
 

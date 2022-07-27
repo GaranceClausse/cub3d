@@ -76,11 +76,12 @@ void	draw(t_data *data)
 			data->img.addr[y * W + x] = data->wall.buf[y][x];
 		}
 	}
+	if (data->mlx_ptr && data->win_ptr && data->img.mlx_img)
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 }
 
 int	main_loop(t_data *data)
 {
 	calc(data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.mlx_img, 0, 0);
 	return (0);
 }

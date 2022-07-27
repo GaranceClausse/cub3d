@@ -7,13 +7,14 @@ int	handle_keypress(t_data *data)
 	return (0);
 }
 
+
 int	handle_input(int key, t_data *data)
 {
 
 	if (key == XK_Escape)
 	{
-		trash(data);
-		exit(1);
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		data->win_ptr = NULL;
 	}
 	if (key == K_A || key == K_D || key == K_S ||  key == K_W)
 	{

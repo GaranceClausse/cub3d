@@ -197,7 +197,6 @@ void	map_is_wrong(char *str, char **map);
 //Hooks
 int	handle_keypress(t_data *data);
 int	handle_keyrelease(int keysym, void *data);
-int	handle_nothing(void);
 int	handle_input(int keysym, t_data *data);
 
 //Floor
