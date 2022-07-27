@@ -40,15 +40,8 @@ void	rotate_vector(t_data *data, int angle)
 }
 
 
-
-int	handle_input(int key, t_data *data)
+void	move_key(int key, t_data *data)
 {
-
-	if (key == XK_Escape)
-	{
-		trash(data);
-		exit(1);
-	}
 	if (key == K_W)
 	{
 		if (!map2[(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)][(int)(data->player.pos_y)])
@@ -65,18 +58,34 @@ int	handle_input(int key, t_data *data)
 			data->player.pos_y -= data->player.dir_y * data->wall.moveSpeed;
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	}
-	if (key == K_A)
-	{
-		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y - 1 * data->wall.moveSpeed)])
-			data->player.pos_y -= 1 * data->wall.moveSpeed;
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	}
 	if (key == K_D)
 	{
-		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y + 1 * data->wall.moveSpeed)])
-			data->player.pos_y += 1 * data->wall.moveSpeed;
+		if (!map2[(int)(data->player.pos_x + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_y)])
+			data->player.pos_x += data->player.dir_y * data->wall.moveSpeed;
+		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y - data->player.dir_x * data->wall.moveSpeed)])
+			data->player.pos_y -= data->player.dir_x * data->wall.moveSpeed;
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	}
+	if (key == K_A)
+	{
+		if (!map2[(int)(data->player.pos_x - data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_y)])
+			data->player.pos_x -= data->player.dir_y * data->wall.moveSpeed;
+		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y + data->player.dir_x * data->wall.moveSpeed)])
+			data->player.pos_y += data->player.dir_x * data->wall.moveSpeed;
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	}
+}
+
+
+int	handle_input(int key, t_data *data)
+{
+
+	if (key == XK_Escape)
+	{
+		trash(data);
+		exit(1);
+	}
+	move_key(key, data);
 	if (key == XK_Right)
 	{
 		double oldDirX = data->player.dir_x;

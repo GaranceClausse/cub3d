@@ -289,7 +289,7 @@ void	init_vrbl(t_data *data)
 	data->player.pos_x = 20;
 	data->player.pos_y = 11;
 	data->player.dir_x = -1;
-	data->player.dir_y = 0;
+	data->player.dir_y = 1;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0.66;
 	data->wall.moveSpeed = 1;
