@@ -32,13 +32,13 @@ int	init_window(t_data *data)
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
 		return (EXIT_FAILURE);
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT, "My first window!");
+	data->win_ptr = mlx_new_window(data->mlx_ptr, W, H, "My first window!");
 	if (data->win_ptr == NULL)
 	{
 		free(data->win_ptr);
 		return (EXIT_FAILURE);
 	}
-	data->img.mlx_img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data->img.mlx_img = mlx_new_image(data->mlx_ptr, W, H);
 	
 	data->img.addr = (int *)mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);

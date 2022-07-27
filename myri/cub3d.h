@@ -1,10 +1,10 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-#define WINDOW_WIDTH 900
-#define WINDOW_HEIGHT 860
-#define tex_height 64
-#define tex_width 64
+#define W 900
+#define H 860
+#define tex_h 64
+#define tex_w 64
 #define mapWidth 24
 #define mapHeight 24
 
@@ -95,6 +95,38 @@ typedef struct s_game
 	t_collect		collect;
 }				t_game;
 
+
+typedef struct s_floor
+{
+	float	rayDirX0;
+	float	rayDirY0;
+	float	rayDirX1;
+	float	rayDirY1;
+	float	posZ;
+	float	rowDistance;
+	float	floorStepX;
+	float	floorStepY;
+	float	floorX;
+	float	floorY;
+	int		cellX;
+	int		cellY;
+	int		tx;
+	int		ty;
+	int		floorTexture;
+	int		ceilingTexture;
+}				t_floor;
+
+typedef struct s_color
+{
+	int texNum;
+	int texX;
+	int y;
+	int texY;
+	double wallX;
+	double step;
+	double texPos;
+}				t_color;
+
 typedef struct		s_wall_info
 {
 	double		moveSpeed;
@@ -126,11 +158,12 @@ typedef struct		s_wall_info
 	int		x;
 	int		y;
 	int		**buf;
-	int		texture[8][tex_height * tex_width];
+	int		texture[8][tex_h * tex_w];
 }			t_wall_info;
 
 typedef struct		s_player
 {
+	char		start;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -167,6 +200,14 @@ int	handle_keyrelease(int keysym, void *data);
 int	handle_nothing(void);
 int	handle_input(int keysym, t_data *data);
 
+//Floor
+void	calc_floor(t_data *data);
+
+//Movement
+void	move_key(int key, t_data *data);
+void	rotate_key(int key, t_data *data);
+
+
 
 void	calc(t_data *data);
 void	init_vrbl(t_data *data);
@@ -176,5 +217,8 @@ int	main_loop(t_data *data);
 void	draw(t_data *data);
 
 void	trash(t_data *data);
+
+//COLOR
+void	choose_color(t_data *data, int x);
 
 #endif
