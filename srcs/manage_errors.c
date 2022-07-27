@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:56:59 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/27 12:21:44 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 13:45:10 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	error(char *str)
 
 void	void_error(char **tab_map)
 {
-	perror("Error :");
+	perror("Error");
 	free_all(tab_map, NULL);
 	exit(EXIT_FAILURE);
 }
