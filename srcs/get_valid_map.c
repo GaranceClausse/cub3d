@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/27 12:37:58 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/27 15:35:02 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,13 @@ char	*dup_map(char *s1, int len)
 		cpy[i] = s1[i];
 		i++;
 	}
-	while (i <= len)
-	{
-		cpy[i] = '1';
-		i++;
+	if (i != 0 && s1[i - 1] == '1')
+	{		
+		while (i <= len)
+		{
+			cpy[i] = '1';
+			i++;
+		}
 	}
 	cpy[i] = '\n';
 	cpy[++i] = '\0';
@@ -89,6 +92,8 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo)
 		while (j < mapinfo->line_count)
 		{
 			tab_map[j] = dup_map(file_to_parse[i], mapinfo->line_len - 1);
+			if (tab_map[j] == NULL)
+				return ((void *)NULL);
 			i++;
 			j++;
 		}
