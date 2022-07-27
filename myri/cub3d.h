@@ -33,6 +33,8 @@
 # define K_D 100
 # define K_S 115
 # define K_W 119
+# define F_D 119
+# define F_G 119
 
 
 typedef struct s_img

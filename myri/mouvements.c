@@ -55,7 +55,6 @@ int	handle_input(int key, t_data *data)
 			data->player.pos_x += data->player.dir_x * data->wall.moveSpeed;
 		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)])
 			data->player.pos_y += data->player.dir_y * data->wall.moveSpeed;
-		printf("%d\n", map2[(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)][(int)(data->player.pos_y)]);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	 }
 	if (key == K_S)
@@ -66,7 +65,19 @@ int	handle_input(int key, t_data *data)
 			data->player.pos_y -= data->player.dir_y * data->wall.moveSpeed;
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	}
+	if (key == K_A)
+	{
+		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y - 1 * data->wall.moveSpeed)])
+			data->player.pos_y -= 1 * data->wall.moveSpeed;
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	}
 	if (key == K_D)
+	{
+		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y + 1 * data->wall.moveSpeed)])
+			data->player.pos_y += 1 * data->wall.moveSpeed;
+	mlx_clear_window(data->mlx_ptr, data->win_ptr);
+	}
+	if (key == XK_Right)
 	{
 		double oldDirX = data->player.dir_x;
 		data->player.dir_x = data->player.dir_x * cos(-data->wall.rotSpeed) - data->player.dir_y * sin(-data->wall.rotSpeed);
@@ -76,7 +87,7 @@ int	handle_input(int key, t_data *data)
 		data->player.plane_y = oldPlaneX * sin(-data->wall.rotSpeed) + data->player.plane_y * cos(-data->wall.rotSpeed);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	}
-	if (key == K_A)
+	if (key == XK_Left)
 	{
 		double oldDirX = data->player.dir_x;
 		data->player.dir_x = data->player.dir_x * cos(data->wall.rotSpeed) - data->player.dir_y * sin(data->wall.rotSpeed);
