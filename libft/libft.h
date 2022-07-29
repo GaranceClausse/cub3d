@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 17:04:22 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/19 14:40:20 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 11:55:19 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ int		ft_putnbr_base(int nbr, char *base);
 int		putusg(unsigned int nbr, char *base);
 int		putul(unsigned long int nbr, char *base);
 int		ft_printf(const char *str, ...);
-char	*get_next_line(int fd);
+char	*my_get_next_line(int fd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/27 15:35:02 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 11:55:19 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo)
 		mapinfo->line_count -= i;
 		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
 		if (!tab_map)
-			void_error(tab_map);
+			void_my_error(tab_map);
 		while (j < mapinfo->line_count)
 		{
 			tab_map[j] = dup_map(file_to_parse[i], mapinfo->line_len - 1);
@@ -108,16 +108,16 @@ char	**get_map(int fd, char **file_to_parse, t_mapinfo *mapinfo)
 	int		i;
 	char	**tab_map;
 
-	file_to_parse[0] = get_next_line(fd);
+	file_to_parse[0] = my_get_next_line(fd);
 	if (!file_to_parse[0])
 	{
 		free(file_to_parse);
-		void_error(file_to_parse);
+		void_my_error(file_to_parse);
 	}
 	i = 1;
 	while (i < mapinfo->line_count)
 	{
-		file_to_parse[i] = get_next_line(fd);
+		file_to_parse[i] = my_get_next_line(fd);
 		i++;
 	}
 	file_to_parse[i] = NULL;

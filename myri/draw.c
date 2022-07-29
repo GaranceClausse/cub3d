@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../include/cub.h"
 
 
 int map4[24][24] = {

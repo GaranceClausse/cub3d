@@ -3,13 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:19:43 by myrmarti          #+#    #+#             */
-/*   Updated: 2022/01/27 19:45:46 by myrmarti         ###   ########.fr       */
+/*   Updated: 2022/07/29 11:56:00 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
+char	*ft_realloc(char *s1, char *s2)
+{
+	char	*newstr;
+	size_t	len_s1;
+	size_t	len_s2;
+
+	len_s1 = ft_strlen(s1);
+	if (ft_strchr(s2, '\n'))
+		len_s2 = ft_strchr(s2, '\n') - s2;
+	else
+		len_s2 = ft_strlen(s2);
+	newstr = malloc(sizeof(char) * (len_s2 + len_s1 + 1));
+	if (!newstr)
+	{
+		free(s1);
+		return (0);
+	}
+	ft_memcpy(newstr, s1, len_s1);
+	ft_memcpy(newstr + len_s1, s2, len_s2);
+	newstr[len_s1 + len_s2] = '\0';
+	free(s1);
+	return (newstr);
+}
+
+/*
 #include "get_next_line.h"
 
 void	*ft_memset( void *pointer, int value, size_t count)
@@ -28,9 +55,6 @@ void	*ft_memset( void *pointer, int value, size_t count)
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
-
-	i = 0;
 	while (*s)
 	{
 		if ((unsigned char )*s == (unsigned char)c)
@@ -61,29 +85,7 @@ void	*ft_memcpy(void *dest, void *src, size_t n)
 	return (dest);
 }
 
-char	*ft_realloc(char *s1, char *s2)
-{
-	char	*newstr;
-	size_t	len_s1;
-	size_t	len_s2;
 
-	len_s1 = ft_strlen(s1);
-	if (ft_strchr(s2, '\n'))
-		len_s2 = ft_strchr(s2, '\n') - s2;
-	else
-		len_s2 = ft_strlen(s2);
-	newstr = malloc(sizeof(char) * (len_s2 + len_s1 + 1));
-	if (!newstr)
-	{
-		free(s1);
-		return (0);
-	}
-	ft_memcpy(newstr, s1, len_s1);
-	ft_memcpy(newstr + len_s1, s2, len_s2);
-	newstr[len_s1 + len_s2] = '\0';
-	free(s1);
-	return (newstr);
-}
 
 int	ft_strlen(char *str)
 {
@@ -94,3 +96,4 @@ int	ft_strlen(char *str)
 		++i;
 	return (i);
 }
+*/

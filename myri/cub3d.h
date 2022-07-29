@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
+/*   Updated: 2022/07/29 11:35:50 by gclausse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -36,6 +48,25 @@
 # define F_D 119
 # define F_G 119
 
+
+typedef struct s_textures {
+	int		dble;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*floor;
+	char	*sky;
+}			t_textures;
+
+typedef struct s_mapinfo {
+	int	line_count;
+	int	line_len;
+	int	player;
+	int	exit;
+	int	x;
+	int	y;
+}			t_mapinfo;
 
 typedef struct s_img
 {
@@ -181,11 +212,11 @@ typedef struct s_data
 	int		cur_img;
 	t_wall_info wall;
 	t_player 	player;
+	t_mapinfo	mapinfo;
 }	t_data;
 
 //Create color windows
 int	main_loop(t_data *data);
-void	get_map(int fd, t_game *game);
 void	print_map(t_data *game);
 void	update_map(t_data *data);
 
@@ -219,5 +250,35 @@ void	trash(t_data *data);
 
 //COLOR
 void	choose_color(t_data *data, int x);
+
+
+//check map utils
+int		check_player(char **tab_map);
+int		check_letters(char **tab_map);
+int		check_first_last_line(char *line);
+int		check_walls(char **tab_map, t_mapinfo *mapinfo);
+
+//check files
+int		verify_filename(char *mapfile);
+int	check_texture_files(t_textures *textinfo);
+
+//check_textures
+int	check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i);
+
+//get valid map
+char	**create_parsing(int fd, t_mapinfo *mapinfo);
+char	**get_map(int fd, char **tab_map, t_mapinfo *mapinfo);
+int		valid_map(char **tab_map, t_mapinfo *mapinfo);
+char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo);// ajouter structure textures
+
+//errors
+void	free_all(char **tab_map, char *str);
+void	free_textstruct(t_textures *textinfo);
+int		my_error(char *str);
+void	void_error(char **tab_map);
+
+//debug
+void	print_tabmap(char **tab_map);
+
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   manage_errors.c                                    :+:      :+:    :+:   */
+/*   manage_my_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:56:59 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/27 13:45:10 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 11:20:05 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	free_all(char **tab_map, char *str)
 		free(str);
 }
 
-int	error(char *str)
+int	my_error(char *str)
 {
 	write(2, "Error : \n", 8);
 	write(2, str, ft_strlen(str));
@@ -54,7 +54,7 @@ int	error(char *str)
 	return (1);
 }
 
-void	void_error(char **tab_map)
+void	void_my_error(char **tab_map)
 {
 	perror("Error");
 	free_all(tab_map, NULL);

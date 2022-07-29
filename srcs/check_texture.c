@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:45:10 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/27 12:23:54 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 11:31:42 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i)
 		mapinfo->line_count--;
 	if (check_texture_files(&textinfo) == 1)
 	{
-		error("problem with the texture files");
+		my_error("problem with the texture files");
 		free_textstruct(&textinfo);
 		free_all(file_to_parse, NULL);
 		exit (EXIT_FAILURE);

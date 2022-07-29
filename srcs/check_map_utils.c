@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:07:15 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/27 15:34:40 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:10:45 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_first_last_line(char *str)
 		if (line[i] != '1' && line[i] != ' ')
 		{
 			free(line);
-			return (error("Map isn't closed 1"));
+			return (my_error("Map isn't closed"));
 		}
 		i++;
 	}
@@ -46,7 +46,7 @@ int	check_walls(char **tab_map, t_mapinfo *mapinfo)
 		if (line[0] != '1' || line[ft_strlen(line) - 1] != '1')
 		{
 			free(line);
-			return (error("Map isn't closed"));
+			return (my_error("Map isn't closed"));
 		}
 		free(line);
 		i++;
@@ -70,7 +70,7 @@ int	check_letters(char **tab_map)
 				&& tab_map[i][j] != 'E' && tab_map[i][j] != 'W'
 				&& tab_map[i][j] != '\n' && tab_map[i][j] != ' ')
 				)
-				return (error("Wrong map"));
+				return (my_error("Wrong map"));
 			j++;
 		}
 		i++;
@@ -99,6 +99,6 @@ int	check_player(char **tab_map)
 		i++;
 	}
 	if (player != 1)
-		return (error("Map should have one player (and only one)"));
+		return (my_error("Map should have one player (and only one)"));
 	return (0);
 }

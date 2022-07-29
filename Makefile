@@ -1,6 +1,7 @@
 NAME    =	cub3D
 
 SRC_PATH=./srcs/
+MYRI_PATH = ./myri/
 
 SRCS    =	check_map_utils.c \
 			check_texture.c \
@@ -9,9 +10,13 @@ SRCS    =	check_map_utils.c \
 			manage_errors.c\
 			create_parsing.c \
 			main.c\
+			
+SRC2 =			cub.c mouvements.c hooks.c  draw.c init.c \
+				gnl/get_next_line.c gnl/get_next_line_utils.c \
+				floor_ceiling.c calc.c
 
 
-SRC=$(addprefix $(SRC_PATH), $(SRCS))
+SRC=$(addprefix $(SRC_PATH), $(SRCS))  $(addprefix $(MYRI_PATH), $(SRC2))
 
 OBJS=$(SRC:.c=.o)
 

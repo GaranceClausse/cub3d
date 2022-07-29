@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:22:55 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/25 15:52:46 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 11:55:19 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ static char	*read_file(int fd, char *cpy)
 	return (cpy);
 }
 
-char	*get_next_line(int fd)
+char	*my_get_next_line(int fd)
 {
 	char		*line;
 	static char	*cpy = NULL;
