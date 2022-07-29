@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 12:33:09 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:41:04 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,9 +212,11 @@ typedef struct s_data
 	t_img	img;
     t_game  game;
 	int		cur_img;
+	char 	**tab_map;
 	t_wall_info wall;
 	t_player 	player;
 	t_mapinfo	mapinfo;
+	t_textures	textures;
 }	t_data;
 
 //Create color windows

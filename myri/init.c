@@ -52,6 +52,7 @@ void	put_txt(char **tab_map, t_data mlx, t_mapinfo mapinfo)
 	}
 }*/
 
+
 void	init_texture(t_data *data)
 {
 	int x;
@@ -144,15 +145,12 @@ void	init_pst(t_data *data)
 
 void	init_vrbl(t_data *data)
 {
-	data->player.start = 'W';
-	data->player.pos_x = 20;
-	data->player.pos_y = 11;
 	data->player.dir_x = 0;
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
 	data->player.plane_y = 0;
-	data->wall.moveSpeed = 1;
-	data->wall.rotSpeed = 1;
+	data->wall.moveSpeed = 0.2;
+	data->wall.rotSpeed = 0.2;
 	init_pst(data);
 	init_color_map(data);
 	init_texture(data);

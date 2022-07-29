@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 12:31:45 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 13:57:47 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,39 @@ void	init_mapinfo(t_mapinfo *mapinfo)
 	mapinfo->exit = 0;
 	return ;
 }
-/*
-int	main(int argc, char **argv)
+
+void	get_map_info(t_data *data)
+{
+	int	i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (data->tab_map[i] != NULL)
+	{
+		j = 0;
+		while (data->tab_map[i][j] && data->tab_map[i][j] != '\n')
+		{
+			if (data->tab_map[i][j] == 'N' || data->tab_map[i][j] == 'S'
+				|| data->tab_map[i][j] == 'E' || data->tab_map[i][j] == 'W')
+			{
+				data->player.start = data->tab_map[i][j];
+				data->player.pos_x = j;
+				data->player.pos_y = i;
+				return ;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	parsing(int argc, char **argv, t_data *data)
 {
 	int			fd;
-	t_mapinfo	mapinfo;
-	char		**tab_map;
 	char		**file_to_parse;
 
-	init_mapinfo(&mapinfo);
+	init_mapinfo(&(data->mapinfo));
 	if (argc != 2)
 		return (my_error("two arguments needed"));
 	if (verify_filename(argv[1]) != 0)
@@ -48,12 +72,12 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (my_error("couldn't open the file"));
-	file_to_parse = create_parsing(fd, &mapinfo);
+	file_to_parse = create_parsing(fd, &(data->mapinfo));
 	close(fd);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (my_error("couldn't open the file"));
-	tab_map = get_map(fd, file_to_parse, &mapinfo);
-	print_tabmap(tab_map); // debug
-	free_all(tab_map, NULL);
-}*/
+	data->tab_map = get_map(fd, file_to_parse, &(data->mapinfo));
+	get_map_info(data);
+	return (0);
+}

@@ -1,34 +1,6 @@
 #include "../include/cub.h"
 # include <math.h>
 
-
-int map2[24][24] = {
-							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
-							{1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
-						};
-
 void	rotate_vector(t_data *data, int angle)
 {
 	t_player	*player = &data->player;
@@ -44,31 +16,31 @@ void	move_key(int key, t_data *data)
 {
 	if (key == K_W)
 	{
-		if (!map2[(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)][(int)(data->player.pos_y)])
-			data->player.pos_x += data->player.dir_x * data->wall.moveSpeed;
-		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)])
+		if (data->tab_map[(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
 			data->player.pos_y += data->player.dir_y * data->wall.moveSpeed;
+		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)] == '0')
+			data->player.pos_x += data->player.dir_x * data->wall.moveSpeed;
 	}
 	if (key == K_S)
 	{
-		if (!map2[(int)(data->player.pos_x - data->player.dir_x * data->wall.moveSpeed)][(int)(data->player.pos_y)])
-			data->player.pos_x -= data->player.dir_x * data->wall.moveSpeed;
-		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y - data->player.dir_y * data->wall.moveSpeed)])
+		if (data->tab_map[(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
 			data->player.pos_y -= data->player.dir_y * data->wall.moveSpeed;
+		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)] == '0')
+			data->player.pos_x -= data->player.dir_x * data->wall.moveSpeed;
 	}
 	if (key == K_D)
 	{
-		if (!map2[(int)(data->player.pos_x + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_y)])
-			data->player.pos_x += data->player.dir_y * data->wall.moveSpeed;
-		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y - data->player.dir_x * data->wall.moveSpeed)])
-			data->player.pos_y -= data->player.dir_x * data->wall.moveSpeed;
+		if (data->tab_map[(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
+			data->player.pos_y += data->player.dir_y * data->wall.moveSpeed;
+		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)] == '0')
+			data->player.pos_x -= data->player.dir_x * data->wall.moveSpeed;
 	}
 	if (key == K_A)
 	{
-		if (!map2[(int)(data->player.pos_x - data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_y)])
-			data->player.pos_x -= data->player.dir_y * data->wall.moveSpeed;
-		if (!map2[(int)(data->player.pos_x)][(int)(data->player.pos_y + data->player.dir_x * data->wall.moveSpeed)])
-			data->player.pos_y += data->player.dir_x * data->wall.moveSpeed;
+		if (data->tab_map[(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
+			data->player.pos_y -= data->player.dir_y * data->wall.moveSpeed;
+		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)] == '0')
+			data->player.pos_x += data->player.dir_x * data->wall.moveSpeed;
 	}
 }
 

@@ -18,6 +18,7 @@ void	trash(t_data *data)
 	free(data->wall.buf);
 	free(data->mlx_ptr);
 	free(data->win_ptr);
+	free_all(data->tab_map, NULL);
 }
 
 int	init_window(t_data *data)
@@ -45,33 +46,6 @@ int	init_window(t_data *data)
 		return (EXIT_FAILURE);
 	}	
 	return (1);
-}
-
-
-int	parsing(int argc, char **argv, t_data *data)
-{
-	int			fd;
-//	t_mapinfo	mapinfo;
-	char		**tab_map;
-	char		**file_to_parse;
-
-	init_mapinfo(&(data->mapinfo));
-	if (argc != 2)
-		return (my_error("two arguments needed"));
-	if (verify_filename(argv[1]) != 0)
-		return (my_error("file type should be *.cub"));
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return (my_error("couldn't open the file"));
-	file_to_parse = create_parsing(fd, &(data->mapinfo));
-	close(fd);
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
-		return (my_error("couldn't open the file"));
-	tab_map = get_map(fd, file_to_parse, &(data->mapinfo));
-	print_tabmap(tab_map); // debug
-	free_all(tab_map, NULL);
-	return (0);
 }
 
 int	main(int argc, char **argv)
