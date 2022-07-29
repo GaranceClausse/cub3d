@@ -54,6 +54,7 @@ int	main(int argc, char **argv)
 
     if (parsing(argc, argv, &data) == 1)
 		return (1);
+	printf("i == %d, j== %d\n",   (int)(data.player.pos_x), (int)(data.player.pos_y));
 	init_vrbl(&data);
 	if (!init_window(&data))
 	{

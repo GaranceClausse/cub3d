@@ -21,7 +21,7 @@ void	choose_color(t_data *data, int x)
 {
 	t_color select_clr;
 
-	if (data->tab_map[data->wall.map_x][data->wall.map_y] == '1')
+	if (data->tab_map[data->wall.map_y][data->wall.map_x] == '1')
 		select_clr.texNum = 1;		
 	else
 		select_clr.texNum = 0;
