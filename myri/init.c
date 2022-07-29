@@ -67,9 +67,9 @@ void	init_texture(t_data *data)
 		y = -1;
 		while (++y < tex_h)
 		{
-			// xorcolor = (x * 256 / tex_w) ^ (y * 256 / tex_h);
-			// ycolor = y * 256 / tex_h;
-			// xycolor = y * 128 / tex_h + x * 128 / tex_w;
+			xorcolor = (x * 256 / tex_w) ^ (y * 256 / tex_h);
+			ycolor = y * 256 / tex_h;
+			 xycolor = y * 128 / tex_h + x * 128 / tex_w;
 			data->wall.texture[0][tex_w * x + y] = 65536 * 254 * (x != y && x != tex_w - y);
 			data->wall.texture[1][tex_w * x + y] = xycolor + 256 * xycolor + 65536 * xycolor;
 			data->wall.texture[2][tex_w * x + y] = 256 * xycolor + 65536 * xycolor;

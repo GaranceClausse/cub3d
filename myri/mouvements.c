@@ -16,15 +16,10 @@ void	move_key(int key, t_data *data)
 {
 	if (key == K_W)
 	{
-		printf("%d|%d\n", data->wall.map_x, data->wall.map_y);
-		puts("w");
-		printf("%c| i = %d, j = %d\n",data->tab_map[(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_x)],  (int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed), (int)(data->player.pos_y));
-		printf("%c\n", data->tab_map[data->wall.map_y][data->wall.map_x]);
 		if (data->tab_map[(int)(data->player.pos_y + data->player.dir_y * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
 			data->player.pos_y += data->player.dir_y * data->wall.moveSpeed;
 		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x + data->player.dir_x * data->wall.moveSpeed)] == '0')
 			data->player.pos_x += data->player.dir_x * data->wall.moveSpeed;
-		// exit(0);
 	}
 	if (key == K_S)
 	{
