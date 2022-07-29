@@ -9,7 +9,7 @@ SRCS    =	check_map_utils.c \
 			get_valid_map.c \
 			manage_errors.c\
 			create_parsing.c \
-			main.c\
+			main_parsing.c\
 			
 SRC2 =			cub.c mouvements.c hooks.c  draw.c init.c \
 				gnl/get_next_line.c gnl/get_next_line_utils.c \

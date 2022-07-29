@@ -68,7 +68,7 @@ void	choose_color(t_data *data, int x)
 
 void	draw(t_data *data)
 {
-	for (int y = 0; y < H; y++) //MDR FULL ILLEGAL
+	for (int y = 0; y < H; y++)
 	{
 		for (int x = 0; x < W; x++)
 		{

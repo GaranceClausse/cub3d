@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../include/cub.h"
 
 void	init_vrbl_floor(t_data *data, t_floor *floor, int y)
 {

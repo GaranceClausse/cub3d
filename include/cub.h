@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 11:50:52 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/29 12:33:09 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ typedef struct s_data
 }	t_data;
 
 //Create color windows
-int	main_loop(t_data *data);
+int		main_loop(t_data *data);
 void	print_map(t_data *game);
 void	update_map(t_data *data);
 
@@ -228,9 +228,9 @@ void	write_error(char *str);
 void	map_is_wrong(char *str, char **map);
 
 //Hooks
-int	handle_keypress(t_data *data);
-int	handle_keyrelease(int keysym, void *data);
-int	handle_input(int keysym, t_data *data);
+int		handle_keypress(t_data *data);
+int		handle_keyrelease(int keysym, void *data);
+int		handle_input(int keysym, t_data *data);
 
 //Floor
 void	calc_floor(t_data *data);
@@ -245,7 +245,7 @@ void	calc(t_data *data);
 void	init_vrbl(t_data *data);
 
 void	img_pix_put(t_img *img, int x, int y, int color);
-int	main_loop(t_data *data);
+int		main_loop(t_data *data);
 void	draw(t_data *data);
 
 void	trash(t_data *data);
@@ -262,10 +262,10 @@ int		check_walls(char **tab_map, t_mapinfo *mapinfo);
 
 //check files
 int		verify_filename(char *mapfile);
-int	check_texture_files(t_textures *textinfo);
+int		check_texture_files(t_textures *textinfo);
 
 //check_textures
-int	check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i);
+int		check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i);
 
 //get valid map
 char	**create_parsing(int fd, t_mapinfo *mapinfo);
@@ -282,7 +282,8 @@ void	void_my_error(char **tab_map);
 //debug
 void	print_tabmap(char **tab_map);
 
+//main parsing
 void	init_mapinfo(t_mapinfo *mapinfo);
-
+int		parsing(int argc, char **argv, t_data *data);
 
 #endif

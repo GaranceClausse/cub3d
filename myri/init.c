@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../include/cub.h"
 
 /*
 void	init_txt(t_data *mlx, t_img *txt, char *path)
