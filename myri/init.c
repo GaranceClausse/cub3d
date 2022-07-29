@@ -25,6 +25,14 @@ void	init_texture(t_data*data)
 			data->wall.texture[5][tex_w * x + y] = 65536 * 192 * (x % 16 && y % 16);
 			data->wall.texture[6][tex_w * x + y] = 65536 * ycolor;
 			data->wall.texture[7][tex_w * x + y] = 128 + 256 * 128 + 65536 * 128;
+			// data->wall.texture[0][tex_w * y + x] = 65536 * 254 * (x != y && x != tex_w - y);
+			// data->wall.texture[1][tex_w * y + x] = xycolor + 256 * xycolor + 65536 * xycolor;
+			// data->wall.texture[2][tex_w * y + x] = 256 * xycolor + 65536 * xycolor;
+			// data->wall.texture[3][tex_w * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor;
+			// data->wall.texture[4][tex_w * y + x] = 256 * xorcolor;
+			// data->wall.texture[5][tex_w * y + x] = 65536 * 192 * (x % 16 && y % 16);
+			// data->wall.texture[6][tex_w * y + x] = 65536 * ycolor;
+			// data->wall.texture[7][tex_w * y + x] = 128 + 256 * 128 + 65536 * 128;
 		}
 	}
 }

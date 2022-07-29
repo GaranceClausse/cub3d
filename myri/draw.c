@@ -33,8 +33,8 @@ void	loop_color(t_data *data, t_color *select_clr, int x)
 	int		color;
 	int		y;
 
-	y = data->wall.draw_start;
-	while (y < data->wall.draw_end)
+	y = data->wall.draw_start - 1;
+	while (++y < data->wall.draw_end)
 	{
 		select_clr->texY = (int)select_clr->texPos & (tex_h - 1);
 		select_clr->texPos += select_clr->step;
@@ -42,7 +42,6 @@ void	loop_color(t_data *data, t_color *select_clr, int x)
 		if (data->wall.side == 1)
 			color = (color >> 1) & 8355711;
 		data->wall.buf[y][x] = color;
-		++y;
 	}
 }
 
@@ -69,7 +68,7 @@ void	choose_color(t_data *data, int x)
 
 void	draw(t_data *data)
 {
-	for (int y = 0; y < H; y++)
+	for (int y = 0; y < H; y++) //MDR FULL ILLEGAL
 	{
 		for (int x = 0; x < W; x++)
 		{
