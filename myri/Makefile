@@ -1,5 +1,6 @@
 MANDA_NAMES = 	cub3d.c mouvements.c hooks.c  draw.c init.c \
 				gnl/get_next_line.c gnl/get_next_line_utils.c \
+				floor_ceiling.c calc.c
 
 MANDA_OBJS =	 $(MANDA_NAMES:.c=.o)
 
