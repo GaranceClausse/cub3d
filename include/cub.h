@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 12:41:04 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/30 16:42:36 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ typedef struct s_data
 	t_img	img;
     t_game  game;
 	int		cur_img;
+	int		key_press;
 	char 	**tab_map;
 	t_wall_info wall;
 	t_player 	player;
@@ -232,6 +233,7 @@ void	map_is_wrong(char *str, char **map);
 //Hooks
 int		handle_keypress(t_data *data);
 int		handle_keyrelease(int keysym, void *data);
+int		handle_release(int key, t_data *data);
 int		handle_input(int keysym, t_data *data);
 
 //Floor

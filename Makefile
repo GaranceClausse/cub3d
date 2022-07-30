@@ -29,19 +29,19 @@ RM        =    rm -f
 CFLAGS    =  -Wall -Werror -Wextra -g3
 #-fsanitize=address -fsanitize=leak -g3
 
-MLX        = ./mlx_linux
+MLX        = ./mlx
 
-MLX_LIB = ./mlx_linux/libmlx_Linux.a
+MLX_LIB = ./mlx/libmlx_Linux.a
 
 LIBFT= ./libft/libft.a
 
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
-	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx_linux -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
+	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx -lmlx -L ./mlx -Imlx -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
 
 $(MLX_LIB):
-	cd ./mlx_linux && ./configure
+	cd ./mlx && ./configure
 
 $(LIBFT):
 	make -C libft

@@ -54,16 +54,16 @@ int	main(int argc, char **argv)
 
     if (parsing(argc, argv, &data) == 1)
 		return (1);
-	printf("i == %d, j== %d\n",   (int)(data.player.pos_x), (int)(data.player.pos_y));
 	init_vrbl(&data);
 	if (!init_window(&data))
 	{
 		trash(&data);
 		return (2);
 	}
-	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
 	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data); /* ADDED */
-	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_input, &data); /* ADDED */
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data); /* ADDED */
+	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
+	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_release, &data); /* ADDED */
     mlx_loop(data.mlx_ptr);
 	trash(&data);
 	return (0);

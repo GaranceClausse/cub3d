@@ -28,14 +28,14 @@ void	move_key(int key, t_data *data)
 		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x - data->player.dir_x * data->wall.moveSpeed)] == '0')
 			data->player.pos_x -= data->player.dir_x * data->wall.moveSpeed;
 	}
-	if (key == K_D)
+	if (key == K_A)
 	{
 		if (data->tab_map[(int)(data->player.pos_y + data->player.dir_x * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
 			data->player.pos_y += data->player.dir_x * data->wall.moveSpeed;
 		if (data->tab_map[(int)(data->player.pos_y)][(int)(data->player.pos_x - data->player.dir_y * data->wall.moveSpeed)] == '0')
 			data->player.pos_x -= data->player.dir_y * data->wall.moveSpeed;
 	}
-	if (key == K_A)
+	if (key == K_D)
 	{
 		if (data->tab_map[(int)(data->player.pos_y - data->player.dir_x * data->wall.moveSpeed)][(int)(data->player.pos_x)] == '0')
 			data->player.pos_y -= data->player.dir_x * data->wall.moveSpeed;
