@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/30 16:42:36 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/01 09:47:43 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,12 @@ typedef struct s_data
 	t_img	img;
     t_game  game;
 	int		cur_img;
-	int		key_press;
+	int		key_forward;
+	int		key_back;
+	int		key_left;
+	int		key_right;
+	int		key_r_left;
+	int		key_r_right;
 	char 	**tab_map;
 	t_wall_info wall;
 	t_player 	player;
@@ -240,8 +245,8 @@ int		handle_input(int keysym, t_data *data);
 void	calc_floor(t_data *data);
 
 //Movement
-void	move_key(int key, t_data *data);
-void	rotate_key(int key, t_data *data);
+void	move_key(t_data *data);
+void	rotate_key(t_data *data);
 
 
 

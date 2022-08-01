@@ -57,5 +57,7 @@ void	draw(t_data *data)
 int	main_loop(t_data *data)
 {
 	calc(data);
+	move_key(data);
+	rotate_key(data);
 	return (0);
 }
