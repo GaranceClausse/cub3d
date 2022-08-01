@@ -52,34 +52,97 @@ void	put_txt(char **tab_map, t_data mlx, t_mapinfo mapinfo)
 	}
 }*/
 
+// void	init_texture(t_data *data)
+// {
+// 	int x;
+// 	int y;
+// 	int xorcolor;
+// 	int ycolor;
+// 	int xycolor;
 
-void	init_texture(t_data *data)
+// 	x = -1;
+// 	while (++x < tex_w)
+// 	{
+// 		y = -1;
+// 		while (++y < tex_h)
+// 		{
+// 			xorcolor = (x * 256 / tex_w) ^ (y * 256 / tex_h);
+// 			ycolor = y * 256 / tex_h;
+// 			 xycolor = y * 128 / tex_h + x * 128 / tex_w;
+// 			data->wall.texture[0][tex_w * x + y] = 65536 * 254 * (x != y && x != tex_w - y);
+// 			data->wall.texture[1][tex_w * x + y] = xycolor + 256 * xycolor + 65536 * xycolor;
+// 			data->wall.texture[2][tex_w * x + y] = 256 * xycolor + 65536 * xycolor;
+// 			data->wall.texture[3][tex_w * x + y] = xorcolor + 256 * xorcolor + 65536 * xorcolor;
+// 			data->wall.texture[4][tex_w * x + y] = 256 * xorcolor;
+// 			data->wall.texture[5][tex_w * x + y] = 65536 * 192 * (x % 16 && y % 16);
+// 			data->wall.texture[6][tex_w * x + y] = 65536 * ycolor;
+// 			data->wall.texture[7][tex_w * x + y] = 128 + 256 * 128 + 65536 * 128;
+// 			mlx_xpm_to_image(data->mlx_ptr, )
+// 		}
+// 	}
+// }
+
+// void	load_image(t_data *data, int *texture, char *path, t_img *img)
+// {
+// 	// img = (t_img *){0};
+// 	int	y = 0;
+// 	int	x = 0;
+// 	puts("Load image");
+// 	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img->width, &img->height);
+// 	puts("Get addr");
+// 	printf("%p\n", img->mlx_img);
+// 	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
+// 	puts("In loop");
+// 	while (y < img->height)
+// 	{
+// 		x = 0;
+// 	puts("In this loop");
+// 		while (x < img->width)
+// 		{
+// 			texture[img->width * y + x] = img->addr[img->width * y + x];
+// 			++x;
+// 		}
+// 		++y;
+// 	}
+// 	puts("Destroy");
+// 	mlx_destroy_image(data->mlx_ptr, img->mlx_img);
+// 	puts("I had finish");
+// }
+
+void	load_image(t_data *data, char *path, t_img *img, int i)
 {
-	int x;
-	int y;
-	int xorcolor;
-	int ycolor;
-	int xycolor;
-
-	x = -1;
-	while (++x < tex_w)
+	puts("1");
+	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img->width, &img->height);
+	puts("2");
+	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
+	puts("3");
+    if (!(data->wall.texture[i] = (int *)malloc(sizeof(int) * (img->height * img->width))))
+		return ;
+	for (int j = 0; j < img->height * img->width; j++)
 	{
-		y = -1;
-		while (++y < tex_h)
-		{
-			xorcolor = (x * 256 / tex_w) ^ (y * 256 / tex_h);
-			ycolor = y * 256 / tex_h;
-			 xycolor = y * 128 / tex_h + x * 128 / tex_w;
-			data->wall.texture[0][tex_w * x + y] = 65536 * 254 * (x != y && x != tex_w - y);
-			data->wall.texture[1][tex_w * x + y] = xycolor + 256 * xycolor + 65536 * xycolor;
-			data->wall.texture[2][tex_w * x + y] = 256 * xycolor + 65536 * xycolor;
-			data->wall.texture[3][tex_w * x + y] = xorcolor + 256 * xorcolor + 65536 * xorcolor;
-			data->wall.texture[4][tex_w * x + y] = 256 * xorcolor;
-			data->wall.texture[5][tex_w * x + y] = 65536 * 192 * (x % 16 && y % 16);
-			data->wall.texture[6][tex_w * x + y] = 65536 * ycolor;
-			data->wall.texture[7][tex_w * x + y] = 128 + 256 * 128 + 65536 * 128;
-		}
+		data->wall.texture[i][j] = 0;
 	}
+    for (int y = 0; y < img->height; y++)
+    {
+        for (int x = 0; x < img->width; x++)
+        {
+            data->wall.texture[i][img->width * y + x] = img->addr[img->width * y + x];
+        }
+    }
+	puts("4");
+	mlx_destroy_image(data->mlx_ptr, img->mlx_img);
+}
+
+void	load_texture(t_data *data)
+{
+	puts("Begin");
+	load_image(data, "../xpmfiles/brick.xpm", &data->text, 0);
+	// load_image(data, data->wall.texture[0], "../xpmfiles/brick.xpm", &img);
+	// load_image(data, data->wall.texture[1], "../xpmfiles/brick.xpm", &img);
+	// load_image(data, data->wall.texture[2], "../xpmfiles/brick.xpm", &img);
+	// load_image(data, data->wall.texture[3], "../xpmfiles/brick.xpm", &img);
+	// load_image(data, data->wall.texture[4], "../xpmfiles/brick.xpm", &img);
+	puts("finish");
 }
 
 void	init_color_map(t_data *data)
@@ -88,26 +151,32 @@ void	init_color_map(t_data *data)
 	int	j;
 
 	i = -1;
-	data->wall.buf = (int **)malloc(sizeof(int *) * H);
-	while (++i < H)
-	{
-		data->wall.buf[i] = (int *)malloc(sizeof(int) * W);
-	}
-	j = 0;
 	i = -1;
+	
+	puts("Begin");
 	while (++i < H)
 	{
 		j = 0;
 		while (j < W)
-			data->wall.buf[i][j++] = 0;
+			data->buf[i][j++] = 0;
 	}
-	i = -1;
-	while (++i < 8)
-	{
-		j = 0;
-		while (j < tex_w * tex_h)
-			data->wall.texture[i][j++] = 0;
-	}
+	puts("Begin");
+	data->wall.texture = (int **)malloc(sizeof(int *) * 4);
+	// i = -1;
+	// while (++i < 8)
+	// {
+	// 	data->wall.texture[i] = (int *)malloc(sizeof(int) * (tex_w * tex_h));
+	// }
+	// j = 0;
+	// i = -1;
+	// while (++i < 8)
+	// {
+	// 	j = 0;
+	// 	while (j < tex_w * tex_h)
+	// 		data->wall.texture[i][j++] = 0;
+	// }
+	puts("Begin");
+	load_texture(data);
 }
 
 void	init_pst(t_data *data)
@@ -145,5 +214,5 @@ void	init_vrbl(t_data *data)
 	data->wall.rotSpeed = 0.2;
 	init_pst(data);
 	init_color_map(data);
-	init_texture(data);
+	return ;
 }

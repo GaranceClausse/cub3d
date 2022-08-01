@@ -7,6 +7,7 @@
         "cub.h": "c",
         "libft.h": "c",
         "ctype.h": "c",
-        "unistd.h": "c"
+        "unistd.h": "c",
+        "types.h": "c"
     }
 }

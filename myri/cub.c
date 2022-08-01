@@ -11,11 +11,11 @@ void	trash(t_data *data)
 	int	i = 0;
 	while (i < H)
 	{
-		if (data->wall.buf[i])
-		free(data->wall.buf[i]);
+		if (data->buf[i])
+		free(data->buf[i]);
 		++i;
 	}
-	free(data->wall.buf);
+	free(data->buf);
 	free(data->mlx_ptr);
 	free(data->win_ptr);
 	free_all(data->tab_map, NULL);
@@ -23,9 +23,6 @@ void	trash(t_data *data)
 
 int	init_window(t_data *data)
 {
-	data->mlx_ptr = mlx_init();
-	if (data->mlx_ptr == NULL)
-		return (EXIT_FAILURE);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, W, H, "My first window!");
 	if (data->win_ptr == NULL)
 	{
@@ -54,7 +51,9 @@ int	main(int argc, char **argv)
 
     if (parsing(argc, argv, &data) == 1)
 		return (1);
-	printf("i == %d, j== %d\n",   (int)(data.player.pos_x), (int)(data.player.pos_y));
+	data.mlx_ptr = mlx_init();
+	if (data.mlx_ptr == NULL)
+		return (1);
 	init_vrbl(&data);
 	if (!init_window(&data))
 	{
@@ -63,8 +62,8 @@ int	main(int argc, char **argv)
 	}
 	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
 	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data); /* ADDED */
-	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_input, &data); /* ADDED */
-    mlx_loop(data.mlx_ptr);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data); /* ADDED */
+	mlx_loop(data.mlx_ptr);
 	trash(&data);
 	return (0);
 }

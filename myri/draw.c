@@ -13,7 +13,7 @@ void	loop_color(t_data *data, t_color *select_clr, int x)
 		color = data->wall.texture[select_clr->texNum][tex_h * select_clr->texY + select_clr->texX];
 		if (data->wall.side == 1)
 			color = (color >> 1) & 8355711;
-		data->wall.buf[y][x] = color;
+		data->buf[y][x] = color;
 	}
 }
 
@@ -47,7 +47,7 @@ void	draw(t_data *data)
 	{
 		for (int x = 0; x < W; x++)
 		{
-			data->img.addr[y * W + x] = data->wall.buf[y][x];
+			data->img.addr[y * W + x] = data->buf[y][x];
 		}
 	}
 	if (data->mlx_ptr && data->win_ptr && data->img.mlx_img)

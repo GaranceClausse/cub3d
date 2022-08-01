@@ -36,12 +36,14 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <math.h>
+# include <unistd.h>
 # include "../myri/gnl/get_next_line.h"
 # include "../myri/mlx/mlx.h"
 # include "../libft/libft.h"
-# include <math.h>
-# include <unistd.h>
 # define PI 3.14159265359
+
+
 
 # define K_A 97
 # define K_D 100
@@ -49,7 +51,6 @@
 # define K_W 119
 # define F_D 119
 # define F_G 119
-
 
 typedef struct s_textures {
 	int		dble;
@@ -75,6 +76,8 @@ typedef struct s_img
 	void	*mlx_img;
 	int	*addr;
 
+	int width;
+	int height;
 	int		bpp; /* bits per pixel */
 	int		line_len;
 	int		endian;
@@ -84,8 +87,6 @@ typedef struct s_rect
 {
 	int	x;
 	int	y;
-	int width;
-	int height;
 	int color;
 }	t_rect;
 
@@ -190,8 +191,7 @@ typedef struct		s_wall_info
 	int		color;
 	int		x;
 	int		y;
-	int		**buf;
-	int		texture[8][tex_h * tex_w];
+	int		**texture;
 }			t_wall_info;
 
 typedef struct		s_player
@@ -207,9 +207,11 @@ typedef struct		s_player
 
 typedef struct s_data
 {
+	int		buf[H][W];
 	void	*mlx_ptr;
 	void	*win_ptr;
 	t_img	img;
+	t_img	text;
     t_game  game;
 	int		cur_img;
 	char 	**tab_map;

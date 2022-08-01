@@ -41,11 +41,11 @@ void	calc_vertical_f_c(t_data *data, t_floor *floor, int y)
 		// floor
 		color = data->wall.texture[floor->floorTexture][tex_w * floor->ty + floor->tx];
 		color = (color >> 1) & 8355711; // make a bit darker
-		data->wall.buf[y][x] = color;
+		data->buf[y][x] = color;
 		//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
 		color = data->wall.texture[floor->ceilingTexture][tex_w * floor->ty + floor->tx];
 		color = (color >> 1) & 8355711; // make a bit darker
-		data->wall.buf[H - y - 1][x] = color;
+		data->buf[H - y - 1][x] = color;
 	}
 }
 
