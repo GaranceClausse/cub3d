@@ -137,6 +137,12 @@ void	init_pst(t_data *data)
 
 void	init_vrbl(t_data *data)
 {
+	data->key_left = 0;
+	data->key_right = 0;
+	data->key_back = 0;
+	data->key_forward = 0;
+	data->key_r_right = 0;
+	data->key_r_left = 0;
 	data->player.dir_x = 0;
 	data->player.dir_y = 0;
 	data->player.plane_x = 0;
