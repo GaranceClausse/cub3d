@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 11:55:19 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/30 17:46:31 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo)
 		{
 			tab_map[j] = dup_map(file_to_parse[i], mapinfo->line_len - 1);
 			if (tab_map[j] == NULL)
-				return ((void *)NULL);
+				return ((void *) NULL);
 			i++;
 			j++;
 		}

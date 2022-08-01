@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 14:46:58 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/07/30 17:26:15 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_mapinfo(t_mapinfo *mapinfo)
 void	get_map_info(t_data *data)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -47,14 +47,13 @@ void	get_map_info(t_data *data)
 		{
 			if (data->tab_map[i][j] == 'N' || data->tab_map[i][j] == 'S'
 				|| data->tab_map[i][j] == 'E' || data->tab_map[i][j] == 'W')
-				{
-					printf("i == %d, j == %d, pos =%c\n", i, j, data->tab_map[i][j]);
+			{
 				data->player.start = data->tab_map[i][j];
 				data->player.pos_x = j;
 				data->player.pos_y = i;
 				data->tab_map[i][j] = '0';
 				return ;
-				}
+			}
 			j++;
 		}
 		i++;
@@ -81,6 +80,5 @@ int	parsing(int argc, char **argv, t_data *data)
 		return (my_error("couldn't open the file"));
 	data->tab_map = get_map(fd, file_to_parse, &(data->mapinfo));
 	get_map_info(data);
-	print_tabmap(data->tab_map); // debug
 	return (0);
 }
