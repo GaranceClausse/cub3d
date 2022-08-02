@@ -37,19 +37,20 @@ int	get_floor_ceiling_color(char *texture)
 	i = 0;
 	color_int = 0;
 	color_trim = malloc(sizeof(char*) * 4);
+	if (!color_trim)
+		return (1);	
 	color = ft_split(texture, ',');
 	while (i < 3)
 	{
 		color_trim[i] = ft_strtrim(color[i], " \n");
 		i++;
 	}
+	color_trim[3] = NULL;
 	color_int = encode_rgb(ft_atoi(color_trim[0]), ft_atoi(color_trim[1]), ft_atoi(color_trim[2]));
 	free_all(color, NULL);
 	free_all(color_trim, NULL);
 	return (color_int);
 }
-
-/// penser a free_all color!!
 
 void	calc_vertical_f_c(t_data *data, t_floor *floor, int y)
 {
