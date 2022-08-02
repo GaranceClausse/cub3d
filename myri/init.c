@@ -26,8 +26,6 @@ void	load_image(t_data *data, char *path, t_img *img, int nb_tex)
 
 void	load_texture(t_data *data)
 {
-	(void)data;
-	printf("%s\n", data->textures.no);
 	load_image(data, data->textures.no, &data->text, 0);
 	load_image(data, data->textures.so, &data->text, 1);
 	load_image(data, data->textures.we, &data->text, 2);
