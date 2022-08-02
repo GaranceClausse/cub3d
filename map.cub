@@ -1,7 +1,7 @@
-NO             ./xpmfiles/brick.xpm
-SO ./xpmfiles/brick.xpm
-WE ./xpmfiles/brick.xpm
-EA            ./xpmfiles/brick.xpm
+NO             ./xpmfiles/northtext.xpm
+SO ./xpmfiles/southtext.xpm
+WE ./xpmfiles/westtext.xpm
+EA            ./xpmfiles/easttext.xpm
           
 C 225,0, 1 
 
