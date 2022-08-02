@@ -51,27 +51,20 @@ int	main(int argc, char **argv)
 
     if (parsing(argc, argv, &data) == 1)
 		return (1);
-<<<<<<< HEAD
 	data.mlx_ptr = mlx_init();
 	if (data.mlx_ptr == NULL)
 		return (1);
-=======
->>>>>>> 5e4d2630f4aa563eac1cfdb44e0c43a2dffb8850
 	init_vrbl(&data);
 	if (!init_window(&data))
 	{
 		trash(&data);
 		return (2);
 	}
+	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
 	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data); /* ADDED */
 	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data); /* ADDED */
-<<<<<<< HEAD
-	mlx_loop(data.mlx_ptr);
-=======
-	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_release, &data); /* ADDED */
     mlx_loop(data.mlx_ptr);
->>>>>>> 5e4d2630f4aa563eac1cfdb44e0c43a2dffb8850
 	trash(&data);
 	return (0);
 }

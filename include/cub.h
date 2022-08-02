@@ -186,12 +186,12 @@ typedef struct		s_wall_info
 	int		draw_start;
 	int		draw_end;
 	int		tex_num;
+	int		**texture;
 	int		tex_x;
 	int		tex_y;
 	int		color;
 	int		x;
 	int		y;
-	int		**texture;
 }			t_wall_info;
 
 typedef struct		s_player

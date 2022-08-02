@@ -87,16 +87,12 @@ void	put_txt(char **tab_map, t_data mlx, t_mapinfo mapinfo)
 // 	// img = (t_img *){0};
 // 	int	y = 0;
 // 	int	x = 0;
-// 	puts("Load image");
 // 	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img->width, &img->height);
-// 	puts("Get addr");
 // 	printf("%p\n", img->mlx_img);
 // 	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
-// 	puts("In loop");
 // 	while (y < img->height)
 // 	{
 // 		x = 0;
-// 	puts("In this loop");
 // 		while (x < img->width)
 // 		{
 // 			texture[img->width * y + x] = img->addr[img->width * y + x];
@@ -104,18 +100,13 @@ void	put_txt(char **tab_map, t_data mlx, t_mapinfo mapinfo)
 // 		}
 // 		++y;
 // 	}
-// 	puts("Destroy");
 // 	mlx_destroy_image(data->mlx_ptr, img->mlx_img);
-// 	puts("I had finish");
 // }
 
 void	load_image(t_data *data, char *path, t_img *img, int i)
 {
-	puts("1");
 	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img->width, &img->height);
-	puts("2");
 	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
-	puts("3");
     if (!(data->wall.texture[i] = (int *)malloc(sizeof(int) * (img->height * img->width))))
 		return ;
 	for (int j = 0; j < img->height * img->width; j++)
@@ -129,20 +120,16 @@ void	load_image(t_data *data, char *path, t_img *img, int i)
             data->wall.texture[i][img->width * y + x] = img->addr[img->width * y + x];
         }
     }
-	puts("4");
 	mlx_destroy_image(data->mlx_ptr, img->mlx_img);
 }
 
 void	load_texture(t_data *data)
 {
-	puts("Begin");
-	load_image(data, "../xpmfiles/brick.xpm", &data->text, 0);
-	// load_image(data, data->wall.texture[0], "../xpmfiles/brick.xpm", &img);
-	// load_image(data, data->wall.texture[1], "../xpmfiles/brick.xpm", &img);
-	// load_image(data, data->wall.texture[2], "../xpmfiles/brick.xpm", &img);
-	// load_image(data, data->wall.texture[3], "../xpmfiles/brick.xpm", &img);
-	// load_image(data, data->wall.texture[4], "../xpmfiles/brick.xpm", &img);
-	puts("finish");
+	(void)data;
+	load_image(data, "xpmfiles/southtext.xpm", &data->text, 0);
+	load_image(data, "xpmfiles/southtext.xpm", &data->text, 1);
+	load_image(data, "xpmfiles/southtext.xpm", &data->text, 2);
+	load_image(data, "xpmfiles/southtext.xpm", &data->text, 3);
 }
 
 void	init_color_map(t_data *data)
@@ -153,29 +140,13 @@ void	init_color_map(t_data *data)
 	i = -1;
 	i = -1;
 	
-	puts("Begin");
 	while (++i < H)
 	{
 		j = 0;
 		while (j < W)
 			data->buf[i][j++] = 0;
 	}
-	puts("Begin");
 	data->wall.texture = (int **)malloc(sizeof(int *) * 4);
-	// i = -1;
-	// while (++i < 8)
-	// {
-	// 	data->wall.texture[i] = (int *)malloc(sizeof(int) * (tex_w * tex_h));
-	// }
-	// j = 0;
-	// i = -1;
-	// while (++i < 8)
-	// {
-	// 	j = 0;
-	// 	while (j < tex_w * tex_h)
-	// 		data->wall.texture[i][j++] = 0;
-	// }
-	puts("Begin");
 	load_texture(data);
 }
 

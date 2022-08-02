@@ -17,7 +17,7 @@ SRC2 =			cub.c mouvements.c hooks.c  draw.c init.c \
 
 
 SRC=$(addprefix $(SRC_PATH), $(SRCS))  $(addprefix $(MYRI_PATH), $(SRC2))
-# test.c
+# myri/test.c
 
 OBJS=$(SRC:.c=.o)
 
@@ -39,11 +39,8 @@ LIBFT= ./libft/libft.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
-<<<<<<< HEAD
 	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
-=======
-	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx -lmlx -L ./mlx -Imlx -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
->>>>>>> 5e4d2630f4aa563eac1cfdb44e0c43a2dffb8850
+# 	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx -lmlx -L ./mlx -Imlx -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
 
 $(MLX_LIB):
 	cd ./mlx && ./configure

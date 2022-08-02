@@ -36,8 +36,8 @@ void	calc_vertical_f_c(t_data *data, t_floor *floor, int y)
 		floor->floorX += floor->floorStepX;
 		floor->floorY += floor->floorStepY;
 		// choose texture and draw the pixel
-		floor->floorTexture = 4;
-		floor->ceilingTexture = 4;
+		floor->floorTexture = 1;
+		floor->ceilingTexture = 1;
 		// floor
 		color = data->wall.texture[floor->floorTexture][tex_w * floor->ty + floor->tx];
 		color = (color >> 1) & 8355711; // make a bit darker
