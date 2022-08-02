@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/30 17:46:31 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:56:45 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*dup_map(char *s1, int len)
 	return (cpy);
 }
 
-char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo)
+char	**get_textures_and_map(t_data *data, char **file_to_parse, t_mapinfo *mapinfo)
 {
 	int		i;
 	int		j;
@@ -83,7 +83,7 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo)
 	i = 0;
 	j = 0;
 	tab_map = NULL;
-	if (!(check_textures(file_to_parse, mapinfo, &i)))
+	if (!(check_textures(data, file_to_parse, mapinfo, &i)))
 	{
 		mapinfo->line_count -= i;
 		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
@@ -103,7 +103,7 @@ char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo)
 	return (tab_map);
 }
 
-char	**get_map(int fd, char **file_to_parse, t_mapinfo *mapinfo)
+char	**get_map(int fd, char **file_to_parse, t_data *data, t_mapinfo *mapinfo)
 {
 	int		i;
 	char	**tab_map;
@@ -121,7 +121,7 @@ char	**get_map(int fd, char **file_to_parse, t_mapinfo *mapinfo)
 		i++;
 	}
 	file_to_parse[i] = NULL;
-	tab_map = get_textures_and_map(file_to_parse, mapinfo);
+	tab_map = get_textures_and_map(data, file_to_parse, mapinfo);
 	valid_map(tab_map, mapinfo);
 	return (tab_map);
 }

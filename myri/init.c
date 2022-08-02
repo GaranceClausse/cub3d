@@ -27,10 +27,11 @@ void	load_image(t_data *data, char *path, t_img *img, int nb_tex)
 void	load_texture(t_data *data)
 {
 	(void)data;
-	load_image(data, "xpmfiles/southtext.xpm", &data->text, 0);
-	load_image(data, "xpmfiles/southtext.xpm", &data->text, 1);
-	load_image(data, "xpmfiles/southtext.xpm", &data->text, 2);
-	load_image(data, "xpmfiles/southtext.xpm", &data->text, 3);
+	printf("%s\n", data->textures.no);
+	load_image(data, data->textures.no, &data->text, 0);
+	load_image(data, data->textures.so, &data->text, 1);
+	load_image(data, data->textures.we, &data->text, 2);
+	load_image(data, data->textures.ea, &data->text, 3);
 }
 
 void	init_color_map(t_data *data)

@@ -1,7 +1,7 @@
-NO             ./xpmfiles/northtext.xpm
-SO ./xpmfiles/southtext.xpm
-WE ./xpmfiles/westtext.xpm
-EA            ./xpmfiles/easttext.xpm
+NO             ./xpmfiles/brick.xpm
+SO ./xpmfiles/brick.xpm
+WE ./xpmfiles/brick.xpm
+EA            ./xpmfiles/brick.xpm
           
 C 225,0, 1 
 
@@ -21,3 +21,14 @@ C 225,0, 1
 110000011101010111110111100111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
+
+
+
+
+
+
+
+
+
+
+

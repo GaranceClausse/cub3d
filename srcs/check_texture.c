@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:45:10 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 11:31:42 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:04:13 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fill_texture(t_textures *textinfo, char *line, char c)
 	free(to_trim);
 }
 
-void	get_texture(char **file_to_parse, t_textures *textinfo, int *i)
+static void	get_texture(char **file_to_parse, t_textures *textinfo, int *i)
 {
 	char	*line;
 	int		j;
@@ -67,21 +67,18 @@ void	get_texture(char **file_to_parse, t_textures *textinfo, int *i)
 	free(line);
 }
 
-int	check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i)
+int	check_textures(t_data *data, char **file_to_parse, t_mapinfo *mapinfo, int *i)
 {
-	t_textures	textinfo;
-
-	init_textures(&textinfo);
-	get_texture(file_to_parse, &textinfo, i);
+	init_textures(&data->textures);
+	get_texture(file_to_parse, &data->textures, i);
 	while (file_to_parse[mapinfo->line_count - 1][0] == '\n')
 		mapinfo->line_count--;
-	if (check_texture_files(&textinfo) == 1)
+	if (check_texture_files(&data->textures) == 1)
 	{
 		my_error("problem with the texture files");
-		free_textstruct(&textinfo);
+		free_textstruct(&data->textures);
 		free_all(file_to_parse, NULL);
 		exit (EXIT_FAILURE);
 	}
-	free_textstruct(&textinfo);
 	return (0);
 }

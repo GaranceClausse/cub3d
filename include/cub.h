@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/01 09:47:43 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:56:56 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,13 +276,13 @@ int		verify_filename(char *mapfile);
 int		check_texture_files(t_textures *textinfo);
 
 //check_textures
-int		check_textures(char **file_to_parse, t_mapinfo *mapinfo, int *i);
+int		check_textures(t_data *data, char **file_to_parse, t_mapinfo *mapinfo, int *i);
 
 //get valid map
 char	**create_parsing(int fd, t_mapinfo *mapinfo);
-char	**get_map(int fd, char **tab_map, t_mapinfo *mapinfo);
+char	**get_map(int fd, char **tab_map, t_data *data, t_mapinfo *mapinfo);
 int		valid_map(char **tab_map, t_mapinfo *mapinfo);
-char	**get_textures_and_map(char **file_to_parse, t_mapinfo *mapinfo);// ajouter structure textures
+char	**get_textures_and_map(t_data *data, char **file_to_parse, t_mapinfo *mapinfo);// ajouter structure textures
 
 //errors
 void	free_all(char **tab_map, char *str);

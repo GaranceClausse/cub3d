@@ -18,6 +18,7 @@ void	trash(t_data *data)
 	free(data->wall.texture);
 	free(data->mlx_ptr);
 	free(data->win_ptr);
+	free_textstruct(&(data->textures));
 	free_all(data->tab_map, NULL);
 }
 

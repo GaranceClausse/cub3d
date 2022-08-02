@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/30 17:26:15 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:55:12 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	parsing(int argc, char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (my_error("couldn't open the file"));
-	data->tab_map = get_map(fd, file_to_parse, &(data->mapinfo));
+	data->tab_map = get_map(fd, file_to_parse, data, &(data->mapinfo));
 	get_map_info(data);
 	return (0);
 }
