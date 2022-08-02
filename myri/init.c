@@ -8,6 +8,9 @@ void	load_image(t_data *data, char *path, t_img *img, int nb_tex)
 	j = 0;
 	i = 0;
 	img->mlx_img = mlx_xpm_file_to_image(data->mlx_ptr, path, &img->width, &img->height);
+	//c'est ici qu'il faut tout free si ca s'est pas bien passe!
+	//if (!img->mlx_img)
+	//	trash(data);
 	img->addr = (int *)mlx_get_data_addr(img->mlx_img, &img->bpp, &img->line_len, &img->endian);
     if (!(data->wall.texture[nb_tex] = (int *)malloc(sizeof(int) * (img->height * img->width))))
 		return ;
