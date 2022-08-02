@@ -24,28 +24,25 @@ void	init_vrbl_floor(t_data *data, t_floor *floor, int y)
 void	calc_vertical_f_c(t_data *data, t_floor *floor, int y)
 {
 	int color;
-
-	for(int x = 0; x < W; ++x)
+	int	i;
+	i = 0;
+	while (i < W)
 	{
-		// the cell coord is simply got from the integer parts of floorX and floorY
 		floor->cellX = (int)(floor->floorX);
 		floor->cellY = (int)(floor->floorY);
-		// get the texture coordinate from the fractional part
 		floor->tx = (int)(tex_w * (floor->floorX - floor->cellX)) & (tex_w - 1);
 		floor->ty = (int)(tex_h * (floor->floorY - floor->cellY)) & (tex_h - 1);
 		floor->floorX += floor->floorStepX;
 		floor->floorY += floor->floorStepY;
-		// choose texture and draw the pixel
 		floor->floorTexture = 1;
 		floor->ceilingTexture = 1;
-		// floor
 		color = data->wall.texture[floor->floorTexture][tex_w * floor->ty + floor->tx];
-		color = (color >> 1) & 8355711; // make a bit darker
-		data->buf[y][x] = color;
-		//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+		color = (color >> 1) & 8355711;
+		data->buf[y][i] = color;
 		color = data->wall.texture[floor->ceilingTexture][tex_w * floor->ty + floor->tx];
-		color = (color >> 1) & 8355711; // make a bit darker
-		data->buf[H - y - 1][x] = color;
+		color = (color >> 1) & 8355711;
+		data->buf[H - y - 1][i] = color;
+		++i;
 	}
 }
 
@@ -53,10 +50,12 @@ void	calc_floor(t_data *data)
 {
 	t_floor	floor;
 
-	//FLOOR CASTING
-	for(int y = 0; y <H; y++)
+	int	i;
+	i = 0;
+	while (i <H)
 	{
-		init_vrbl_floor(data, &floor, y);
-		calc_vertical_f_c(data, &floor, y);
+		init_vrbl_floor(data, &floor, i);
+		calc_vertical_f_c(data, &floor, i);
+		++i;
 	}
 }

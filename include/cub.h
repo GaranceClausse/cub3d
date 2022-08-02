@@ -39,7 +39,7 @@
 # include <math.h>
 # include <unistd.h>
 # include "../myri/gnl/get_next_line.h"
-# include "../myri/mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # define PI 3.14159265359
 

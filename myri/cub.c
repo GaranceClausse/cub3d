@@ -9,13 +9,13 @@ void	trash(t_data *data)
 	if (data->mlx_ptr)
 	    mlx_destroy_display(data->mlx_ptr);
 	int	i = 0;
-	while (i < H)
+	while (i < 4)
 	{
-		if (data->buf[i])
-		free(data->buf[i]);
+		if (data->wall.texture[i])
+			free(data->wall.texture[i]);
 		++i;
 	}
-	free(data->buf);
+	free(data->wall.texture);
 	free(data->mlx_ptr);
 	free(data->win_ptr);
 	free_all(data->tab_map, NULL);
@@ -61,9 +61,9 @@ int	main(int argc, char **argv)
 		return (2);
 	}
 	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
-	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data); /* ADDED */
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data); /* ADDED */
-	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_release, &data); /* ADDED */
+	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data);
+	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
+	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_release, &data);
     mlx_loop(data.mlx_ptr);
 	trash(&data);
 	return (0);

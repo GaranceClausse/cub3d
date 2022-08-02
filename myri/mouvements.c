@@ -1,5 +1,4 @@
 #include "../include/cub.h"
-# include <math.h>
 
 void	rotate_vector(t_data *data, int angle)
 {
