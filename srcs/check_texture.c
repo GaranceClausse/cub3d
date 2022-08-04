@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_texture.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 12:45:10 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/02 16:04:13 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:04:25 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ static void	get_texture(char **file_to_parse, t_textures *textinfo, int *i)
 	free(line);
 }
 
-int	check_textures(t_data *data, char **file_to_parse, t_mapinfo *mapinfo, int *i)
+int	check_textures(t_data *data, char **f_parse, t_mapinfo *mapinfo, int *i)
 {
 	init_textures(&data->textures);
-	get_texture(file_to_parse, &data->textures, i);
-	while (file_to_parse[mapinfo->line_count - 1][0] == '\n')
+	get_texture(f_parse, &data->textures, i);
+	while (f_parse[mapinfo->line_count - 1][0] == '\n')
 		mapinfo->line_count--;
 	if (check_texture_files(&data->textures) == 1)
 	{
 		my_error("problem with the texture files");
 		free_textstruct(&data->textures);
-		free_all(file_to_parse, NULL);
+		free_all(f_parse, NULL);
 		exit (EXIT_FAILURE);
 	}
 	return (0);

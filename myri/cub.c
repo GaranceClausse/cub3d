@@ -1,42 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/02 19:15:46 by myrmarti          #+#    #+#             */
+/*   Updated: 2022/08/04 12:03:56 by gclausse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub.h"
 
 void	trash(t_data *data)
 {
-	if (data->mlx_ptr && data->img.mlx_img)
-		mlx_destroy_image(data->mlx_ptr, data->img.mlx_img);
-	if (data->win_ptr)
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	if (data->mlx_ptr)
-	    mlx_destroy_display(data->mlx_ptr);
-	int	i = 0;
-	while (i < 4)
+	int	i;
+
+	i = 0;
+	if (data->mlx && data->img.img)
+		mlx_destroy_image(data->mlx, data->img.img);
+	if (data->win)
+		mlx_destroy_window(data->mlx, data->win);
+	if (data->mlx)
+		mlx_destroy_display(data->mlx);
+	while (i < 4 && data->wall.texture[i])
 	{
 		if (data->wall.texture[i])
 			free(data->wall.texture[i]);
 		++i;
 	}
-	free(data->wall.texture);
-	free(data->mlx_ptr);
-	free(data->win_ptr);
+	if (data->wall.texture)
+		free(data->wall.texture);
+	if (data->mlx)
+		free(data->mlx);
+	if (data->win)
+		free(data->win);
 	free_textstruct(&(data->textures));
 	free_all(data->tab_map, NULL);
+	exit(2);
 }
 
 int	init_window(t_data *data)
 {
-	data->win_ptr = mlx_new_window(data->mlx_ptr, W, H, "My first window!");
-	if (data->win_ptr == NULL)
+	data->win = mlx_new_window(data->mlx, W, H, "Try to escape!");
+	if (data->win == NULL)
 	{
 		trash(data);
 		return (EXIT_FAILURE);
 	}
-	data->img.mlx_img = mlx_new_image(data->mlx_ptr, W, H);
-	if (data->img.mlx_img == NULL)
+	data->img.img = mlx_new_image(data->mlx, W, H);
+	if (data->img.img == NULL)
 	{
 		trash(data);
 		return (EXIT_FAILURE);
 	}
-	data->img.addr = (int *)mlx_get_data_addr(data->img.mlx_img, &data->img.bpp,
+	data->img.addr = (int *)mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 	if (data->img.addr == NULL)
 	{
@@ -50,10 +68,11 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-    if (parsing(argc, argv, &data) == 1)
+	data = (t_data){0};
+	if (parsing(argc, argv, &data) == 1)
 		return (1);
-	data.mlx_ptr = mlx_init();
-	if (data.mlx_ptr == NULL)
+	data.mlx = mlx_init();
+	if (data.mlx == NULL)
 		return (1);
 	init_vrbl(&data);
 	if (!init_window(&data))
@@ -61,11 +80,11 @@ int	main(int argc, char **argv)
 		trash(&data);
 		return (2);
 	}
-	mlx_loop_hook(data.mlx_ptr, &main_loop, &data);
-	mlx_hook(data.win_ptr, ClientMessage, LeaveWindowMask, &handle_keypress, &data);
-	mlx_hook(data.win_ptr, KeyPress, KeyPressMask, &handle_input, &data);
-	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &handle_release, &data);
-    mlx_loop(data.mlx_ptr);
+	mlx_loop_hook(data.mlx, &main_loop, &data);
+	mlx_hook(data.win, ClientMessage, LeaveWindowMask, &click_btn, &data);
+	mlx_hook(data.win, KeyPress, KeyPressMask, &handle_input, &data);
+	mlx_hook(data.win, KeyRelease, KeyReleaseMask, &handle_release, &data);
+	mlx_loop(data.mlx);
 	trash(&data);
 	return (0);
 }

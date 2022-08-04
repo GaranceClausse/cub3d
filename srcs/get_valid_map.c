@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/02 15:56:45 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/04 10:39:15 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*dup_map(char *s1, int len)
 	{		
 		while (i <= len)
 		{
-			cpy[i] = '1';
+			cpy[i] = ' ';
 			i++;
 		}
 	}
@@ -74,7 +74,7 @@ char	*dup_map(char *s1, int len)
 	return (cpy);
 }
 
-char	**get_textures_and_map(t_data *data, char **file_to_parse, t_mapinfo *mapinfo)
+char	**get_textures_and_map(t_data *data, char **f_parse, t_mapinfo *mapinfo)
 {
 	int		i;
 	int		j;
@@ -83,7 +83,7 @@ char	**get_textures_and_map(t_data *data, char **file_to_parse, t_mapinfo *mapin
 	i = 0;
 	j = 0;
 	tab_map = NULL;
-	if (!(check_textures(data, file_to_parse, mapinfo, &i)))
+	if (!(check_textures(data, f_parse, mapinfo, &i)))
 	{
 		mapinfo->line_count -= i;
 		tab_map = malloc(sizeof(char *) * ((mapinfo->line_count + 1)));
@@ -91,37 +91,37 @@ char	**get_textures_and_map(t_data *data, char **file_to_parse, t_mapinfo *mapin
 			void_my_error(tab_map);
 		while (j < mapinfo->line_count)
 		{
-			tab_map[j] = dup_map(file_to_parse[i], mapinfo->line_len - 1);
+			tab_map[j] = dup_map(f_parse[i], mapinfo->line_len - 1);
 			if (tab_map[j] == NULL)
 				return ((void *) NULL);
 			i++;
 			j++;
 		}
 		tab_map[j] = NULL;
-		free_all(file_to_parse, NULL);
+		free_all(f_parse, NULL);
 	}
 	return (tab_map);
 }
 
-char	**get_map(int fd, char **file_to_parse, t_data *data, t_mapinfo *mapinfo)
+char	**get_map(int fd, char **f_parse, t_data *data, t_mapinfo *mapinfo)
 {
 	int		i;
 	char	**tab_map;
 
-	file_to_parse[0] = my_get_next_line(fd);
-	if (!file_to_parse[0])
+	f_parse[0] = my_get_next_line(fd);
+	if (!f_parse[0])
 	{
-		free(file_to_parse);
-		void_my_error(file_to_parse);
+		free(f_parse);
+		void_my_error(f_parse);
 	}
 	i = 1;
 	while (i < mapinfo->line_count)
 	{
-		file_to_parse[i] = my_get_next_line(fd);
+		f_parse[i] = my_get_next_line(fd);
 		i++;
 	}
-	file_to_parse[i] = NULL;
-	tab_map = get_textures_and_map(data, file_to_parse, mapinfo);
+	f_parse[i] = NULL;
+	tab_map = get_textures_and_map(data, f_parse, mapinfo);
 	valid_map(tab_map, mapinfo);
 	return (tab_map);
 }

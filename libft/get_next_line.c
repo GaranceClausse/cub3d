@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 14:22:55 by gclausse          #+#    #+#             */
-/*   Updated: 2022/07/29 11:55:19 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:59:24 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ static char	*get_one_line(char *cpy)
 		i++;
 	}
 	if (cpy[i] == '\n')
-	{
-		s2[i] = '\n';
-		i++;
-	}
+		s2[i++] = '\n';
 	s2[i] = '\0';
 	return (s2);
 }

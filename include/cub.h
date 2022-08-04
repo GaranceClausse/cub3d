@@ -3,31 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/02 15:56:56 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:07:05 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB_H
+# define CUB_H
 
-#define W 900
-#define H 860
-#define tex_h 64
-#define tex_w 64
-#define mapWidth 24
-#define mapHeight 24
-
-#define WHITE_PIXEL 0xFFFFFF
-#define BLACK_PIXEL 00000
+# define W 900
+# define H 860
+# define TEX_H 64
+# define TEX_W 64
+# define WHITE_PIXEL 0xFFFFFF
+# define BLACK_PIXEL 00000
 # define RED_PIXEL  0xFF2F02
 # define BLUE_PIXEL  0x0464F1
-#define YELLOW_PIXEL 0XFFFF6B
-
-
-#include <X11/keysym.h>
+# define YELLOW_PIXEL 0XFFFF6B
+# include <X11/keysym.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <string.h>
@@ -42,9 +37,6 @@
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # define PI 3.14159265359
-
-
-
 # define K_A 97
 # define K_D 100
 # define K_S 115
@@ -60,7 +52,7 @@ typedef struct s_textures {
 	char	*ea;
 	char	*floor;
 	char	*sky;
-}			t_textures;
+}				t_textures;
 
 typedef struct s_mapinfo {
 	int	line_count;
@@ -73,21 +65,20 @@ typedef struct s_mapinfo {
 
 typedef struct s_img
 {
-	void	*mlx_img;
-	int	*addr;
-
-	int width;
-	int height;
-	int		bpp; /* bits per pixel */
+	void	*img;
+	int		*addr;
+	int		width;
+	int		height;
+	int		bpp;
 	int		line_len;
 	int		endian;
-}	t_img;
+}				t_img;
 
 typedef struct s_rect
 {
 	int	x;
 	int	y;
-	int color;
+	int	color;
 }	t_rect;
 
 typedef struct s_window
@@ -129,42 +120,41 @@ typedef struct s_game
 	t_collect		collect;
 }				t_game;
 
-
 typedef struct s_floor
 {
-	float	rayDirX0;
-	float	rayDirY0;
-	float	rayDirX1;
-	float	rayDirY1;
-	float	posZ;
-	float	rowDistance;
-	float	floorStepX;
-	float	floorStepY;
-	float	floorX;
-	float	floorY;
-	int		cellX;
-	int		cellY;
+	float	ray_dir_x;
+	float	ray_dir_y;
+	float	ray_dir_x1;
+	float	ray_dir_y1;
+	float	posz;
+	float	rowdistance;
+	float	floor_step_x;
+	float	floor_step_y;
+	float	floorx;
+	float	floory;
+	int		cellx;
+	int		celly;
 	int		tx;
 	int		ty;
-	int		floorTexture;
-	int		ceilingTexture;
+	int		floortexture;
+	int		ceilingtexture;
 }				t_floor;
 
 typedef struct s_color
 {
-	int texNum;
-	int texX;
-	int y;
-	int texY;
-	double wallX;
-	double step;
-	double texPos;
+	int		texnum;
+	int		texx;
+	int		y;
+	int		texy;
+	double	wallx;
+	double	step;
+	double	texpos;
 }				t_color;
 
-typedef struct		s_wall_info
+typedef struct s_wall_info
 {
-	double		moveSpeed;
-	double		rotSpeed;
+	double		movespeed;
+	double		rotspeed;
 	double		camera_x;
 	double		raydir_x;
 	double		raydir_y;
@@ -176,25 +166,25 @@ typedef struct		s_wall_info
 	double		wall_x;
 	double		step;
 	double		tex_pos;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y;
-	int		hit;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		tex_num;
-	int		**texture;
-	int		tex_x;
-	int		tex_y;
-	int		color;
-	int		x;
-	int		y;
-}			t_wall_info;
+	int			map_x;
+	int			map_y;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			tex_num;
+	int			**texture;
+	int			tex_x;
+	int			tex_y;
+	int			color;
+	int			x;
+	int			y;
+}				t_wall_info;
 
-typedef struct		s_player
+typedef struct s_player
 {
 	char		start;
 	double		pos_x;
@@ -203,29 +193,30 @@ typedef struct		s_player
 	double		dir_y;
 	double		plane_x;
 	double		plane_y;
-}			t_player;
+}				t_player;
 
 typedef struct s_data
 {
-	int		buf[H][W];
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-	t_img	text;
-    t_game  game;
-	int		cur_img;
-	int		key_forward;
-	int		key_back;
-	int		key_left;
-	int		key_right;
-	int		key_r_left;
-	int		key_r_right;
-	char 	**tab_map;
-	t_wall_info wall;
-	t_player 	player;
+	int			opt;
+	int			buf[H][W];
+	void		*mlx;
+	void		*win;
+	t_img		img;
+	t_img		text;
+	t_game		game;
+	int			cur_img;
+	int			key_forward;
+	int			key_back;
+	int			key_left;
+	int			key_right;
+	int			key_r_left;
+	int			key_r_right;
+	char		**tab_map;
+	t_wall_info	wall;
+	t_player	player;
 	t_mapinfo	mapinfo;
 	t_textures	textures;
-}	t_data;
+}				t_data;
 
 //Create color windows
 int		main_loop(t_data *data);
@@ -238,7 +229,7 @@ void	write_error(char *str);
 void	map_is_wrong(char *str, char **map);
 
 //Hooks
-int		handle_keypress(t_data *data);
+int		click_btn(t_data *data);
 int		handle_keyrelease(int keysym, void *data);
 int		handle_release(int key, t_data *data);
 int		handle_input(int keysym, t_data *data);
@@ -249,8 +240,6 @@ void	calc_floor(t_data *data);
 //Movement
 void	move_key(t_data *data);
 void	rotate_key(t_data *data);
-
-
 
 void	calc(t_data *data);
 void	init_vrbl(t_data *data);
@@ -264,7 +253,6 @@ void	trash(t_data *data);
 //COLOR
 void	choose_color(t_data *data, int x);
 
-
 //check map utils
 int		check_player(char **tab_map);
 int		check_letters(char **tab_map);
@@ -274,15 +262,16 @@ int		check_walls(char **tab_map, t_mapinfo *mapinfo);
 //check files
 int		verify_filename(char *mapfile);
 int		check_texture_files(t_textures *textinfo);
-
 //check_textures
-int		check_textures(t_data *data, char **file_to_parse, t_mapinfo *mapinfo, int *i);
+int		check_textures(t_data *data,
+			char **f_parse, t_mapinfo *mapinfo, int *i);
 
 //get valid map
 char	**create_parsing(int fd, t_mapinfo *mapinfo);
 char	**get_map(int fd, char **tab_map, t_data *data, t_mapinfo *mapinfo);
 int		valid_map(char **tab_map, t_mapinfo *mapinfo);
-char	**get_textures_and_map(t_data *data, char **file_to_parse, t_mapinfo *mapinfo);// ajouter structure textures
+char	**get_textures_and_map(t_data *data,
+			char **file_to_parse, t_mapinfo *mapinfo);
 
 //errors
 void	free_all(char **tab_map, char *str);
@@ -296,5 +285,15 @@ void	print_tabmap(char **tab_map);
 //main parsing
 void	init_mapinfo(t_mapinfo *mapinfo);
 int		parsing(int argc, char **argv, t_data *data);
+
+void	verif_pst(t_data *data);
+
+//calc_text
+void	calc_opt_1(t_data *data);
+void	calc_opt_2(t_data *data);
+void	calc_opt_3(t_data *data);
+void	calc_opt_4(t_data *data);
+
+void	load_texture(t_data *data);
 
 #endif

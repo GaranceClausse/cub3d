@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hooks.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/02 18:59:55 by myrmarti          #+#    #+#             */
+/*   Updated: 2022/08/03 12:34:50 by myrmarti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub.h"
 
-int	handle_keypress(t_data *data)
+int	click_btn(t_data *data)
 {
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	data->win_ptr = NULL;
+	mlx_destroy_window(data->mlx, data->win);
+	data->win = NULL;
 	return (0);
 }
 
@@ -26,7 +38,6 @@ int	handle_release(int key, t_data *data)
 
 int	handle_input(int key, t_data *data)
 {
-
 	if (key == K_A)
 		data->key_left = 1;
 	else if (key == K_D)
@@ -41,8 +52,8 @@ int	handle_input(int key, t_data *data)
 		data->key_r_left = 1;
 	if (key == XK_Escape)
 	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		data->win_ptr = NULL;
+		mlx_destroy_window(data->mlx, data->win);
+		data->win = NULL;
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 12:18:49 by myrmarti          #+#    #+#             */
-/*   Updated: 2022/07/29 11:45:15 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/02 19:04:39 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_return(int ret, char *buff, int j)
 
 int	get_next_line(int fd, char **line)
 {
-	static char buff[BUFFER_SIZE + 1];
+	static char	buff[BUFFER_SIZE + 1];
 	int			ret;
 
 	*line = NULL;

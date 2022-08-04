@@ -13,13 +13,21 @@ SRCS    =	check_map_utils.c \
 			
 SRC2 =			cub.c mouvements.c hooks.c  draw.c init.c \
 				gnl/get_next_line.c gnl/get_next_line_utils.c \
-				floor_ceiling.c calc.c
+				floor_ceiling.c calc.c calc_text.c load_texture.c \
+				pst.c
 
+SRC2_B =		cub.c mouvements.c hooks.c  draw.c init.c \
+				gnl/get_next_line.c gnl/get_next_line_utils.c \
+				floor_ceiling_bonus.c calc.c calc_text.c load_texture.c \
+				pst.c
 
 SRC=$(addprefix $(SRC_PATH), $(SRCS))  $(addprefix $(MYRI_PATH), $(SRC2))
-# myri/test.c
+
+SRC_B=$(addprefix $(SRC_PATH), $(SRCS))  $(addprefix $(MYRI_PATH), $(SRC2_B))
 
 OBJS=$(SRC:.c=.o)
+
+OBJS_B=$(SRC_B:.c=.o)
 
 %.o: %.c
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
@@ -36,11 +44,14 @@ MLX_LIB = ./mlx/libmlx_Linux.a
 
 LIBFT= ./libft/libft.a
 
+bonus: $(LIBFT) $(MLX_LIB) $(OBJS_B)
+	 $(CC) $(SRC_B) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o  $(NAME)
+
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
 	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
-# 	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx -lmlx -L ./mlx -Imlx -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
+
 
 $(MLX_LIB):
 	cd ./mlx && ./configure
@@ -50,7 +61,7 @@ $(LIBFT):
 	
 
 clean:
-	${RM} ${OBJS}
+	${RM} ${OBJS} ${OBJS_B}
 	make clean -C ${MLX}
 	make clean -C libft
 

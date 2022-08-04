@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 15:00:19 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/02 15:55:12 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:05:22 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	get_map_info(t_data *data)
 				data->player.start = data->tab_map[i][j];
 				data->player.pos_x = j;
 				data->player.pos_y = i;
+				verif_pst(data);
 				data->tab_map[i][j] = '0';
 				return ;
 			}
