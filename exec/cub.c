@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:15:46 by myrmarti          #+#    #+#             */
-/*   Updated: 2022/08/04 12:03:56 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/04 14:55:17 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	trash(t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
 		mlx_destroy_display(data->mlx);
-	while (i < 4 && data->wall.texture[i])
+	while (i < 4)
 	{
 		if (data->wall.texture[i])
 			free(data->wall.texture[i]);

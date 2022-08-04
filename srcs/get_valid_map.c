@@ -6,7 +6,7 @@
 /*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:12:07 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/04 10:39:15 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:04:06 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**replace_spaces(char **tab_map)
 	return (tab_map);
 }
 
-int	valid_map(char **tab_map, t_mapinfo *mapinfo)
+int	valid_map(char **tab_map, t_mapinfo *mapinfo, t_data *data)
 {
 	if (check_first_last_line(tab_map[0]) != 0
 		|| check_first_last_line(tab_map[mapinfo->line_count -1]) != 0
@@ -41,6 +41,7 @@ int	valid_map(char **tab_map, t_mapinfo *mapinfo)
 		|| check_letters(tab_map) != 0)
 	{
 		free_all(tab_map, NULL);
+		free_textstruct(&(data->textures));
 		exit (EXIT_FAILURE);
 	}
 	tab_map = replace_spaces(tab_map);
@@ -122,6 +123,6 @@ char	**get_map(int fd, char **f_parse, t_data *data, t_mapinfo *mapinfo)
 	}
 	f_parse[i] = NULL;
 	tab_map = get_textures_and_map(data, f_parse, mapinfo);
-	valid_map(tab_map, mapinfo);
+	valid_map(tab_map, mapinfo, data);
 	return (tab_map);
 }

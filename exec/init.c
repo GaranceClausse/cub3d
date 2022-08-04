@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 19:00:17 by myrmarti          #+#    #+#             */
-/*   Updated: 2022/08/04 11:55:42 by gclausse         ###   ########.fr       */
+/*   Updated: 2022/08/04 13:15:25 by myrmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ void	init_color_map(t_data *data)
 	data->wall.texture = (int **)malloc(sizeof(int *) * 4);
 	if (!data->wall.texture)
 		return ;
+	i = 0;
+	while (i < 4)
+	{
+		data->wall.texture[i] = 0;
+		++i;
+	}
 	load_texture(data);
 }
 

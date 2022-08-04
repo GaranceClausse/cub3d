@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myrmarti <myrmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gclausse <gclausse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 14:14:11 by gclausse          #+#    #+#             */
-/*   Updated: 2022/08/03 14:07:05 by myrmarti         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:04:26 by gclausse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <unistd.h>
-# include "../myri/gnl/get_next_line.h"
+# include "../exec/gnl/get_next_line.h"
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # define PI 3.14159265359
@@ -269,7 +269,7 @@ int		check_textures(t_data *data,
 //get valid map
 char	**create_parsing(int fd, t_mapinfo *mapinfo);
 char	**get_map(int fd, char **tab_map, t_data *data, t_mapinfo *mapinfo);
-int		valid_map(char **tab_map, t_mapinfo *mapinfo);
+int		valid_map(char **tab_map, t_mapinfo *mapinfo, t_data *data);
 char	**get_textures_and_map(t_data *data,
 			char **file_to_parse, t_mapinfo *mapinfo);
 

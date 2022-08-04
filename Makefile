@@ -1,7 +1,8 @@
 NAME    =	cub3D
+NAME_B    =	cub3D_B
 
 SRC_PATH=./srcs/
-MYRI_PATH = ./myri/
+MYRI_PATH = ./exec/
 
 SRCS    =	check_map_utils.c \
 			check_texture.c \
@@ -44,14 +45,15 @@ MLX_LIB = ./mlx/libmlx_Linux.a
 
 LIBFT= ./libft/libft.a
 
-bonus: $(LIBFT) $(MLX_LIB) $(OBJS_B)
-	 $(CC) $(SRC_B) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o  $(NAME)
 
 all: $(NAME)
+bonus: $(NAME_B)
 
 $(NAME): $(LIBFT) $(MLX_LIB) $(OBJS)
-	$(CC) $(SRC) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
+	$(CC) $(OBJS) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o $(NAME)	
 
+$(NAME_B): $(LIBFT) $(MLX_LIB) $(OBJS_B)
+	 $(CC) $(OBJS_B) $(CFLAGS) -I . -g3 -Lmlx_Linux -lmlx_Linux -L ./mlx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz -o  $(NAME_B)
 
 $(MLX_LIB):
 	cd ./mlx && ./configure
@@ -66,9 +68,9 @@ clean:
 	make clean -C libft
 
 fclean:        clean
-	${RM} ${NAME}
+	${RM} ${NAME} ${NAME_B}
 	make fclean -C libft
-	${RM} ${NAME} ${MLX_LIB}
+	${RM} ${MLX_LIB}
 
 re:            fclean
 	$(MAKE) all -j
